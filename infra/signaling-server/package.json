@@ -1,0 +1,23 @@
+{
+  "name": "@zerithdb/signaling-server",
+  "version": "0.1.0",
+  "description": "Minimal WebSocket signaling server for ZerithDB WebRTC peer discovery",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/server.js",
+  "scripts": {
+    "build": "tsup src/server.ts --format esm",
+    "start": "node dist/server.js",
+    "dev": "tsx --watch src/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.12",
+    "tsup": "^8.2.4",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  }
+}

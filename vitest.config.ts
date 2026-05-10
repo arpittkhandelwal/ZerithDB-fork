@@ -1,0 +1,27 @@
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: "happy-dom",
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html", "lcov"],
+      exclude: [
+        "node_modules/**",
+        "dist/**",
+        "**/*.d.ts",
+        "**/*.config.*",
+        "**/index.ts",
+      ],
+      thresholds: {
+        lines: 70,
+        functions: 70,
+        branches: 65,
+        statements: 70,
+      },
+    },
+    include: ["packages/*/src/**/*.test.ts", "tests/**/*.test.ts"],
+    exclude: ["node_modules", "dist", ".next"],
+  },
+});
