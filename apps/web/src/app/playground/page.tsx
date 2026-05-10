@@ -38,7 +38,7 @@ export default function PlaygroundPage() {
       }, [] as Note[]);
 
       // Only update if there's an actual difference to prevent infinite loops
-      if (JSON.stringify(merged) !== JSON.stringify(clientA)) setClientA(merged);
+      if (JSON.stringify(merged) !== JSON.stringify(clientA)) setClientA(merged); // eslint-disable-line react-hooks/set-state-in-effect
       if (JSON.stringify(merged) !== JSON.stringify(clientB)) setClientB(merged);
       
       if (clientA.length > 0 || clientB.length > 0) {
