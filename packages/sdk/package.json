@@ -33,9 +33,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src --ext .ts",
     "clean": "rimraf dist"
   },
   "dependencies": {

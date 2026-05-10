@@ -18,7 +18,6 @@
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --treeshake --external react",
     "dev": "tsup src/index.tsx --format esm,cjs --dts --watch --external react",
-    "lint": "eslint src --ext .ts,.tsx",
     "clean": "rimraf dist"
   },
   "dependencies": {
