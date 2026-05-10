@@ -45,7 +45,8 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
    * After connection, WebRTC handshakes happen automatically.
    */
   async connect(roomId: string): Promise<void> {
-    const signalingUrl = this.config.sync?.signalingUrl ?? "wss://arpitkhandelwal810-zerith-signaling.hf.space";
+    const signalingUrl =
+      this.config.sync?.signalingUrl ?? "wss://arpitkhandelwal810-zerith-signaling.hf.space";
     const url = `${signalingUrl}?room=${encodeURIComponent(roomId)}&peer=${this.localPeerId}`;
 
     return new Promise((resolve, reject) => {

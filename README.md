@@ -140,8 +140,8 @@ that, peers communicate directly.
 
 ## Packages
 
-| Package                                 | Version                                                | Description                       |
-| --------------------------------------- | ------------------------------------------------------ | --------------------------------- |
+| Package                                | Version                                               | Description                       |
+| -------------------------------------- | ----------------------------------------------------- | --------------------------------- |
 | [`zerithdb-sdk`](packages/sdk)         | ![npm](https://img.shields.io/npm/v/zerithdb-sdk)     | Main developer-facing API         |
 | [`zerithdb-db`](packages/db)           | ![npm](https://img.shields.io/npm/v/zerithdb-db)      | IndexedDB adapter (Dexie wrapper) |
 | [`zerithdb-sync`](packages/sync)       | ![npm](https://img.shields.io/npm/v/zerithdb-sync)    | CRDT sync engine (Yjs)            |

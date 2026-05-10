@@ -2,9 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { 
-  ArrowLeft, Copy, Check, Terminal, Search, Book, 
-  Code, Server, Database, Globe, Zap, FileText 
+import {
+  ArrowLeft,
+  Copy,
+  Check,
+  Terminal,
+  Search,
+  Book,
+  Code,
+  Server,
+  Database,
+  Globe,
+  Zap,
+  FileText,
 } from "lucide-react";
 
 type Framework = {
@@ -25,14 +35,15 @@ const FRAMEWORKS: Framework[] = [
       {
         title: "1. Wrap your app with the Provider",
         description: "Initialize the CRDT engine and WebRTC pool at the root of your application.",
-        code: "import { ZerithProvider } from 'zerithdb-react';\n\nexport default function App({ children }) {\n  return (\n    <ZerithProvider config={{ appId: 'my-app', sync: true }}>\n      {children}\n    </ZerithProvider>\n  );\n}"
+        code: "import { ZerithProvider } from 'zerithdb-react';\n\nexport default function App({ children }) {\n  return (\n    <ZerithProvider config={{ appId: 'my-app', sync: true }}>\n      {children}\n    </ZerithProvider>\n  );\n}",
       },
       {
         title: "2. Read and Write Data",
-        description: "Use our custom hooks to interact with local-first collections. Data instantly syncs across peers.",
-        code: "import { useQuery } from 'zerithdb-react';\n\nfunction TodoList() {\n  // Subscribes to IndexedDB & WebRTC changes automatically\n  const { data: todos, insert } = useQuery('todos');\n\n  return (\n    <div>\n      {todos.map(todo => <p key={todo.id}>{todo.text}</p>)}\n      <button onClick={() => insert({ text: 'New Todo' })}>\n        Add Todo\n      </button>\n    </div>\n  );\n}"
-      }
-    ]
+        description:
+          "Use our custom hooks to interact with local-first collections. Data instantly syncs across peers.",
+        code: "import { useQuery } from 'zerithdb-react';\n\nfunction TodoList() {\n  // Subscribes to IndexedDB & WebRTC changes automatically\n  const { data: todos, insert } = useQuery('todos');\n\n  return (\n    <div>\n      {todos.map(todo => <p key={todo.id}>{todo.text}</p>)}\n      <button onClick={() => insert({ text: 'New Todo' })}>\n        Add Todo\n      </button>\n    </div>\n  );\n}",
+      },
+    ],
   },
   {
     id: "vanilla",
@@ -43,19 +54,20 @@ const FRAMEWORKS: Framework[] = [
       {
         title: "1. Initialize the Client",
         description: "Create a local-first database instance. Storage defaults to IndexedDB.",
-        code: "import { createClient } from 'zerithdb-sdk';\n\nconst db = createClient({\n  appId: 'my-app',\n  storage: 'indexeddb',\n  p2p: true \n});"
+        code: "import { createClient } from 'zerithdb-sdk';\n\nconst db = createClient({\n  appId: 'my-app',\n  storage: 'indexeddb',\n  p2p: true \n});",
       },
       {
         title: "2. Subscribe to Changes",
         description: "Listen for CRDT merges from other peers in real-time.",
-        code: "db.collection('messages').subscribe((messages) => {\n  document.getElementById('msg-list').innerHTML = messages\n    .map(m => '<li>' + m.text + '</li>')\n    .join('');\n});"
+        code: "db.collection('messages').subscribe((messages) => {\n  document.getElementById('msg-list').innerHTML = messages\n    .map(m => '<li>' + m.text + '</li>')\n    .join('');\n});",
       },
       {
         title: "3. Mutate Data",
-        description: "Writes are synchronous locally (0ms) and broadcasted to peers asynchronously.",
-        code: "async function sendMessage(text) {\n  await db.collection('messages').insert({\n    text,\n    timestamp: Date.now()\n  });\n}"
-      }
-    ]
+        description:
+          "Writes are synchronous locally (0ms) and broadcasted to peers asynchronously.",
+        code: "async function sendMessage(text) {\n  await db.collection('messages').insert({\n    text,\n    timestamp: Date.now()\n  });\n}",
+      },
+    ],
   },
   {
     id: "python",
@@ -65,90 +77,152 @@ const FRAMEWORKS: Framework[] = [
     steps: [
       {
         title: "1. Connect Python Client",
-        description: "Instantiate the backend client to act as an authoritative peer or to ingest webhooks.",
-        code: "from zerithdb import Client\n\n# Initialize the Python client\ndb = Client(app_id='my-app')"
+        description:
+          "Instantiate the backend client to act as an authoritative peer or to ingest webhooks.",
+        code: "from zerithdb import Client\n\n# Initialize the Python client\ndb = Client(app_id='my-app')",
       },
       {
         title: "2. Sync Server Events",
-        description: "Insert events locally; the ZerithDB engine will relay them to all connected browser peers.",
-        code: "def sync_event(event_data):\n    # Inserts into local storage & syncs via network\n    db.collection('events').insert(event_data)\n    print(f'Event synced: {event_data}')\n\nsync_event({\n    'type': 'server_restart',\n    'timestamp': 1690000000\n})"
-      }
-    ]
-  }
+        description:
+          "Insert events locally; the ZerithDB engine will relay them to all connected browser peers.",
+        code: "def sync_event(event_data):\n    # Inserts into local storage & syncs via network\n    db.collection('events').insert(event_data)\n    print(f'Event synced: {event_data}')\n\nsync_event({\n    'type': 'server_restart',\n    'timestamp': 1690000000\n})",
+      },
+    ],
+  },
 ];
 
 const SIDEBAR_LINKS = [
   {
     category: "Getting Started",
     icon: Book,
-    items: ["Introduction", "Quickstart", "Installation"]
+    items: ["Introduction", "Quickstart", "Installation"],
   },
   {
     category: "Core Concepts",
     icon: Database,
-    items: ["CRDT Synchronization", "Peer-to-Peer Networks", "Offline-First Storage", "Conflict Resolution"]
+    items: [
+      "CRDT Synchronization",
+      "Peer-to-Peer Networks",
+      "Offline-First Storage",
+      "Conflict Resolution",
+    ],
   },
   {
     category: "API Reference",
     icon: Code,
-    items: ["Client Configuration", "Collections", "Queries", "Auth & Permissions"]
+    items: ["Client Configuration", "Collections", "Queries", "Auth & Permissions"],
   },
   {
     category: "Platform",
     icon: Server,
-    items: ["Signaling Servers", "TURN / STUN Relays", "Pricing", "Enterprise"]
-  }
+    items: ["Signaling Servers", "TURN / STUN Relays", "Pricing", "Enterprise"],
+  },
 ];
 
 const DOC_CONTENT: Record<string, React.ReactNode> = {
-  "Introduction": (
+  Introduction: (
     <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
-      <p>ZerithDB is a revolutionary local-first, peer-to-peer database built for the modern web. It allows developers to build responsive, offline-capable applications without the latency and complexity of traditional cloud databases.</p>
+      <p>
+        ZerithDB is a revolutionary local-first, peer-to-peer database built for the modern web. It
+        allows developers to build responsive, offline-capable applications without the latency and
+        complexity of traditional cloud databases.
+      </p>
       <h3 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Why Local-First?</h3>
-      <p>Traditional web applications rely on a central server for every read and write operation. This means your app is only as fast as the network connection. Local-first applications reverse this paradigm: data is written to and read from a local database immediately, and then synced asynchronously in the background.</p>
+      <p>
+        Traditional web applications rely on a central server for every read and write operation.
+        This means your app is only as fast as the network connection. Local-first applications
+        reverse this paradigm: data is written to and read from a local database immediately, and
+        then synced asynchronously in the background.
+      </p>
       <h3 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Core Benefits</h3>
       <ul className="list-disc pl-6 space-y-3">
-        <li><strong>Zero Latency:</strong> Operations happen locally at the speed of the device.</li>
-        <li><strong>Offline Support:</strong> Apps work flawlessly without internet access.</li>
-        <li><strong>Real-time Multiplayer:</strong> Changes merge automatically using CRDTs.</li>
-        <li><strong>Reduced Server Costs:</strong> P2P syncing offloads bandwidth from your servers.</li>
+        <li>
+          <strong>Zero Latency:</strong> Operations happen locally at the speed of the device.
+        </li>
+        <li>
+          <strong>Offline Support:</strong> Apps work flawlessly without internet access.
+        </li>
+        <li>
+          <strong>Real-time Multiplayer:</strong> Changes merge automatically using CRDTs.
+        </li>
+        <li>
+          <strong>Reduced Server Costs:</strong> P2P syncing offloads bandwidth from your servers.
+        </li>
       </ul>
     </div>
   ),
-  "Installation": (
+  Installation: (
     <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
-      <p>ZerithDB is available as a set of NPM packages. Depending on your stack, you can install the core SDK or framework-specific wrappers.</p>
+      <p>
+        ZerithDB is available as a set of NPM packages. Depending on your stack, you can install the
+        core SDK or framework-specific wrappers.
+      </p>
       <h3 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Core JavaScript SDK</h3>
-      <div className="bg-gray-900 p-4 rounded-lg text-gray-300 font-mono text-sm border border-gray-800">npm install zerithdb-sdk</div>
+      <div className="bg-gray-900 p-4 rounded-lg text-gray-300 font-mono text-sm border border-gray-800">
+        npm install zerithdb-sdk
+      </div>
       <h3 className="text-2xl font-bold text-gray-900 mt-12 mb-4">React & Next.js</h3>
-      <div className="bg-gray-900 p-4 rounded-lg text-gray-300 font-mono text-sm border border-gray-800">npm install zerithdb-react</div>
+      <div className="bg-gray-900 p-4 rounded-lg text-gray-300 font-mono text-sm border border-gray-800">
+        npm install zerithdb-react
+      </div>
       <h3 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Python Backend</h3>
-      <div className="bg-gray-900 p-4 rounded-lg text-gray-300 font-mono text-sm border border-gray-800">pip install zerithdb</div>
+      <div className="bg-gray-900 p-4 rounded-lg text-gray-300 font-mono text-sm border border-gray-800">
+        pip install zerithdb
+      </div>
     </div>
   ),
   "CRDT Synchronization": (
     <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
-      <p>At the heart of ZerithDB is a Conflict-free Replicated Data Type (CRDT) engine. CRDTs are data structures that can be replicated across multiple computers in a network, updated independently, and mathematically guaranteed to converge to the same state.</p>
+      <p>
+        At the heart of ZerithDB is a Conflict-free Replicated Data Type (CRDT) engine. CRDTs are
+        data structures that can be replicated across multiple computers in a network, updated
+        independently, and mathematically guaranteed to converge to the same state.
+      </p>
       <div className="p-6 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 mt-8">
-        <strong>How it works:</strong> Instead of storing absolute values (e.g., &quot;count is 5&quot;), ZerithDB stores causal operations (e.g., &quot;add 1 to count&quot;). By securely distributing these operations using vector clocks, all peers arrive at the same outcome without central locking.
+        <strong>How it works:</strong> Instead of storing absolute values (e.g., &quot;count is
+        5&quot;), ZerithDB stores causal operations (e.g., &quot;add 1 to count&quot;). By securely
+        distributing these operations using vector clocks, all peers arrive at the same outcome
+        without central locking.
       </div>
-      <p className="mt-8">We use an optimized implementation of Yjs/Automerge-like algorithms customized for fast IndexedDB querying.</p>
+      <p className="mt-8">
+        We use an optimized implementation of Yjs/Automerge-like algorithms customized for fast
+        IndexedDB querying.
+      </p>
     </div>
   ),
   "Peer-to-Peer Networks": (
     <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
-      <p>To eliminate server bottlenecks, ZerithDB relies heavily on WebRTC data channels for real-time synchronization between clients.</p>
+      <p>
+        To eliminate server bottlenecks, ZerithDB relies heavily on WebRTC data channels for
+        real-time synchronization between clients.
+      </p>
       <ul className="list-disc pl-6 space-y-3 mt-6">
-        <li><strong>Signaling:</strong> A lightweight WebSocket server is used only to exchange IP addresses.</li>
-        <li><strong>Direct Connection:</strong> Once connected, browsers exchange CRDT operations directly with zero server middleman.</li>
-        <li><strong>Mesh Topology:</strong> Clients form a resilient mesh network to distribute data even if some nodes go offline.</li>
+        <li>
+          <strong>Signaling:</strong> A lightweight WebSocket server is used only to exchange IP
+          addresses.
+        </li>
+        <li>
+          <strong>Direct Connection:</strong> Once connected, browsers exchange CRDT operations
+          directly with zero server middleman.
+        </li>
+        <li>
+          <strong>Mesh Topology:</strong> Clients form a resilient mesh network to distribute data
+          even if some nodes go offline.
+        </li>
       </ul>
     </div>
   ),
   "Offline-First Storage": (
     <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
-      <p>All writes in ZerithDB are synchronously written to a local database before any network request is made. On the web, we use <code>IndexedDB</code>.</p>
-      <p>If the user loses internet connection, they can continue interacting with the app. Once the connection is restored, the sync engine automatically flushes the queue of pending operations to the P2P network.</p>
+      <p>
+        All writes in ZerithDB are synchronously written to a local database before any network
+        request is made. On the web, we use <code>IndexedDB</code>.
+      </p>
+      <p>
+        If the user loses internet connection, they can continue interacting with the app. Once the
+        connection is restored, the sync engine automatically flushes the queue of pending
+        operations to the P2P network.
+      </p>
     </div>
   ),
 };
@@ -159,7 +233,7 @@ export default function DocsPage() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [copiedInstall, setCopiedInstall] = useState(false);
 
-  const activeFramework = FRAMEWORKS.find(f => f.id === activeId) || FRAMEWORKS[0];
+  const activeFramework = FRAMEWORKS.find((f) => f.id === activeId) || FRAMEWORKS[0];
 
   const handleCopy = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
@@ -179,19 +253,21 @@ export default function DocsPage() {
       return (
         <>
           <p className="text-lg text-gray-500 mb-10 leading-relaxed max-w-3xl">
-            Get up and running with ZerithDB in less than 2 minutes. Choose your preferred framework below to see the boilerplate code required to initialize your local-first database.
+            Get up and running with ZerithDB in less than 2 minutes. Choose your preferred framework
+            below to see the boilerplate code required to initialize your local-first database.
           </p>
 
           <div className="flex flex-wrap gap-2 mb-10 border-b border-gray-200 pb-px">
-            {FRAMEWORKS.map(fw => (
+            {FRAMEWORKS.map((fw) => (
               <button
                 key={fw.id}
                 onClick={() => setActiveId(fw.id)}
-                className={"px-4 py-2.5 text-sm font-semibold transition-all border-b-2 -mb-px " + (
-                  activeId === fw.id 
-                    ? "border-black text-black" 
-                    : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
-                )}
+                className={
+                  "px-4 py-2.5 text-sm font-semibold transition-all border-b-2 -mb-px " +
+                  (activeId === fw.id
+                    ? "border-black text-black"
+                    : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300")
+                }
               >
                 {fw.name}
               </button>
@@ -210,7 +286,11 @@ export default function DocsPage() {
                 className="p-2 hover:bg-gray-800 rounded-md transition-colors text-gray-400 hover:text-white"
                 title="Copy command"
               >
-                {copiedInstall ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                {copiedInstall ? (
+                  <Check className="w-4 h-4 text-green-400" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>
@@ -218,13 +298,9 @@ export default function DocsPage() {
           <div className="space-y-12">
             {activeFramework.steps.map((step, idx) => (
               <div key={idx} className="relative">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  {step.description}
-                </p>
-                
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
+                <p className="text-gray-600 mb-4">{step.description}</p>
+
                 <div className="rounded-xl border border-gray-200 overflow-hidden shadow-sm group">
                   <div className="bg-gray-50 border-b border-gray-200 px-4 py-2.5 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs font-mono text-gray-500">
@@ -237,7 +313,11 @@ export default function DocsPage() {
                       onClick={() => handleCopy(step.code, idx)}
                       className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-black transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
                     >
-                      {copiedIndex === idx ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedIndex === idx ? (
+                        <Check className="w-3.5 h-3.5 text-green-600" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
                       {copiedIndex === idx ? "Copied" : "Copy"}
                     </button>
                   </div>
@@ -257,10 +337,14 @@ export default function DocsPage() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">You&apos;re ready to build!</h3>
             <p className="text-gray-600 mb-6 max-w-xl">
-              You&apos;ve successfully set up the foundation for a zero-backend application. Explore the advanced topics to unlock the full power of ZerithDB.
+              You&apos;ve successfully set up the foundation for a zero-backend application. Explore
+              the advanced topics to unlock the full power of ZerithDB.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
-              <Link href="/playground" className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group">
+              <Link
+                href="/playground"
+                className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group"
+              >
                 <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center group-hover:bg-blue-100 transition-colors">
                   <Globe className="w-5 h-5" />
                 </div>
@@ -269,7 +353,10 @@ export default function DocsPage() {
                   <div className="text-xs text-gray-500">Test offline/online sync locally</div>
                 </div>
               </Link>
-              <button onClick={() => setActiveSection("CRDT Synchronization")} className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-md transition-all group text-left">
+              <button
+                onClick={() => setActiveSection("CRDT Synchronization")}
+                className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-md transition-all group text-left"
+              >
                 <div className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors">
                   <FileText className="w-5 h-5" />
                 </div>
@@ -291,17 +378,37 @@ export default function DocsPage() {
     // Generic fallback for missing sections
     return (
       <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
-        <p>Welcome to the <strong>{activeSection}</strong> documentation. ZerithDB is designed to handle this seamlessly, ensuring your applications remain fast, reliable, and real-time across the globe.</p>
-        <p>In traditional architecture, handling {activeSection.toLowerCase()} requires immense overhead, central database locking, and complex state reconciliation. ZerithDB bypasses all of this by utilizing advanced local-first patterns.</p>
+        <p>
+          Welcome to the <strong>{activeSection}</strong> documentation. ZerithDB is designed to
+          handle this seamlessly, ensuring your applications remain fast, reliable, and real-time
+          across the globe.
+        </p>
+        <p>
+          In traditional architecture, handling {activeSection.toLowerCase()} requires immense
+          overhead, central database locking, and complex state reconciliation. ZerithDB bypasses
+          all of this by utilizing advanced local-first patterns.
+        </p>
         <h3 className="text-2xl font-bold text-gray-900 mt-12 mb-4">Key Mechanisms</h3>
         <ul className="list-disc pl-6 space-y-3">
-            <li><strong>Optimistic Updates:</strong> The UI updates instantly without waiting for network verification.</li>
-            <li><strong>Background Sync:</strong> Data associated with {activeSection.toLowerCase()} synchronizes transparently when the network is available.</li>
-            <li><strong>Peer Discovery:</strong> WebRTC channels automatically negotiate direct connections to resolve state.</li>
+          <li>
+            <strong>Optimistic Updates:</strong> The UI updates instantly without waiting for
+            network verification.
+          </li>
+          <li>
+            <strong>Background Sync:</strong> Data associated with {activeSection.toLowerCase()}{" "}
+            synchronizes transparently when the network is available.
+          </li>
+          <li>
+            <strong>Peer Discovery:</strong> WebRTC channels automatically negotiate direct
+            connections to resolve state.
+          </li>
         </ul>
         <div className="mt-12 p-6 bg-gray-50 border border-gray-200 rounded-xl">
           <h4 className="font-semibold text-gray-900 mb-2">Note on Implementation</h4>
-          <p className="text-sm text-gray-500">The specific API surface for {activeSection.toLowerCase()} is currently being standardized in the upcoming v1.0 release. Check back soon for detailed code snippets.</p>
+          <p className="text-sm text-gray-500">
+            The specific API surface for {activeSection.toLowerCase()} is currently being
+            standardized in the upcoming v1.0 release. Check back soon for detailed code snippets.
+          </p>
         </div>
       </div>
     );
@@ -311,7 +418,10 @@ export default function DocsPage() {
     <div className="min-h-screen bg-white flex flex-col font-sans">
       <header className="bg-white border-b border-gray-200 px-6 h-16 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-4">
-          <Link href="/" className="text-gray-500 hover:text-black transition-colors flex items-center gap-2 text-sm font-medium">
+          <Link
+            href="/"
+            className="text-gray-500 hover:text-black transition-colors flex items-center gap-2 text-sm font-medium"
+          >
             <ArrowLeft className="w-4 h-4" /> Back to Home
           </Link>
           <div className="h-4 w-px bg-gray-300"></div>
@@ -319,23 +429,31 @@ export default function DocsPage() {
             <div className="w-8 h-8 flex items-center justify-center">
               <img src="/logo.svg" alt="ZerithDB Logo" className="w-full h-full" />
             </div>
-            <span className="font-semibold text-gray-900 text-lg tracking-tight">Documentation</span>
+            <span className="font-semibold text-gray-900 text-lg tracking-tight">
+              Documentation
+            </span>
           </div>
         </div>
-        
+
         <div className="hidden md:flex items-center gap-4">
           <div className="relative">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input 
-              type="text" 
-              placeholder="Search documentation... (Press '/')" 
+            <input
+              type="text"
+              placeholder="Search documentation... (Press '/')"
               className="pl-9 pr-4 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 w-64 transition-all"
             />
           </div>
-          <Link href="/playground" className="text-sm font-medium text-gray-500 hover:text-black transition-colors">
+          <Link
+            href="/playground"
+            className="text-sm font-medium text-gray-500 hover:text-black transition-colors"
+          >
             Playground
           </Link>
-          <a href="https://github.com/arpittkhandelwal/ZerithDB" className="text-sm font-medium text-gray-500 hover:text-black transition-colors">
+          <a
+            href="https://github.com/arpittkhandelwal/ZerithDB"
+            className="text-sm font-medium text-gray-500 hover:text-black transition-colors"
+          >
             GitHub
           </a>
         </div>
@@ -355,14 +473,17 @@ export default function DocsPage() {
                   <ul className="flex flex-col gap-1.5 border-l border-gray-100 ml-1.5 pl-3">
                     {section.items.map((item, i) => (
                       <li key={i}>
-                        <button 
+                        <button
                           onClick={(e) => {
                             e.preventDefault();
                             setActiveSection(item);
                           }}
-                          className={"text-sm font-medium transition-colors text-left w-full " + (
-                            item === activeSection ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
-                          )}
+                          className={
+                            "text-sm font-medium transition-colors text-left w-full " +
+                            (item === activeSection
+                              ? "text-blue-600"
+                              : "text-gray-500 hover:text-gray-900")
+                          }
                         >
                           {item}
                         </button>
@@ -386,19 +507,24 @@ export default function DocsPage() {
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
               {activeSection}
             </h1>
-            
-            {renderContent()}
 
+            {renderContent()}
           </div>
         </main>
-        
+
         {/* RIGHT SIDEBAR - ON THIS PAGE */}
         <aside className="w-64 py-10 pr-6 hidden xl:block sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-4">On this page</h4>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-4">
+            On this page
+          </h4>
           <ul className="space-y-3 text-sm text-gray-500 font-medium border-l border-gray-100 pl-4">
             {activeSection === "Quickstart" ? (
               <>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Install the SDK</a></li>
+                <li>
+                  <a href="#" className="hover:text-blue-600 transition-colors">
+                    Install the SDK
+                  </a>
+                </li>
                 {activeFramework.steps.map((step, idx) => (
                   <li key={idx}>
                     <a href="#" className="hover:text-blue-600 transition-colors line-clamp-1">
@@ -406,10 +532,18 @@ export default function DocsPage() {
                     </a>
                   </li>
                 ))}
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Next Steps</a></li>
+                <li>
+                  <a href="#" className="hover:text-blue-600 transition-colors">
+                    Next Steps
+                  </a>
+                </li>
               </>
             ) : (
-               <li><a href="#" className="text-blue-600 transition-colors">Overview</a></li>
+              <li>
+                <a href="#" className="text-blue-600 transition-colors">
+                  Overview
+                </a>
+              </li>
             )}
           </ul>
         </aside>
