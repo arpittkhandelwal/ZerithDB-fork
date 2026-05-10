@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/zerithdb/zerithdb/main/docs/assets/logo.svg" alt="ZerithDB" width="80" />
+<img src="./docs/assets/logo.svg" alt="ZerithDB" width="80" />
 
 # ZerithDB
 
