@@ -1,9 +1,16 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  extends: ["zerithdb-eslint-config"],
-  parserOptions: {
-    project: true,
-    tsconfigRootDir: __dirname,
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint"],
+  env: {
+    browser: true,
+    node: true,
+    es2022: true,
   },
+  rules: {},
 };
