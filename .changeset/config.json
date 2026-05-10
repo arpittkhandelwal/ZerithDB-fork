@@ -11,18 +11,13 @@
       "zerithdb-network",
       "zerithdb-auth",
       "zerithdb-sdk",
-      "zerithdb-cli",
-      "zerithdb-python"
+      "zerithdb-cli"
     ]
   ],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "todo-app",
-    "chat-app",
-    "notes-app",
-    "web",
-    "signaling-server"
+    "web"
   ]
 }
