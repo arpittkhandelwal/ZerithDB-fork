@@ -12,5 +12,8 @@ module.exports = {
     node: true,
     es2022: true,
   },
-  rules: {},
+  rules: {
+    // Document types intentionally use `any` in generic constraints (e.g. Record<string, any>)
+    "@typescript-eslint/no-explicit-any": "off",
+  },
 };
