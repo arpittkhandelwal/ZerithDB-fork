@@ -5,21 +5,24 @@
   "fixed": [],
   "linked": [
     [
-      "@zerithdb/core",
-      "@zerithdb/db",
-      "@zerithdb/sync",
-      "@zerithdb/network",
-      "@zerithdb/auth",
-      "@zerithdb/sdk"
+      "zerithdb-core",
+      "zerithdb-db",
+      "zerithdb-sync",
+      "zerithdb-network",
+      "zerithdb-auth",
+      "zerithdb-sdk",
+      "zerithdb-cli",
+      "zerithdb-python"
     ]
   ],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@zerithdb/todo-app",
-    "@zerithdb/chat-app",
-    "@zerithdb/notes-app",
-    "@zerithdb/playground"
+    "todo-app",
+    "chat-app",
+    "notes-app",
+    "web",
+    "signaling-server"
   ]
 }
