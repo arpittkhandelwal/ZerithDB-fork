@@ -8,8 +8,8 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![CI](https://github.com/zerithdb/zerithdb/actions/workflows/ci.yml/badge.svg)](https://github.com/zerithdb/zerithdb/actions/workflows/ci.yml)
-[![npm version](https://badge.fury.io/js/@zerithdb%2Fsdk.svg)](https://badge.fury.io/js/@zerithdb%2Fsdk)
-[![Discord](https://img.shields.io/discord/0000000000?label=Discord&logo=discord)](https://discord.gg/MhvuDvzWfF)
+[![Status](https://img.shields.io/badge/status-alpha-orange.svg)]()
+[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/MhvuDvzWfF)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 [**Documentation**](https://zerithdb.dev/docs) · [**Live Playground**](https://playground.zerithdb.dev) · [**Discord**](https://discord.gg/MhvuDvzWfF) · [**Roadmap**](ROADMAP.md)
