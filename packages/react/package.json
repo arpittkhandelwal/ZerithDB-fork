@@ -1,6 +1,6 @@
 {
   "name": "zerithdb-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React hooks and providers for ZerithDB",
   "license": "Apache-2.0",
   "type": "module",
