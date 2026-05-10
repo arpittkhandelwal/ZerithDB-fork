@@ -1,12 +1,14 @@
 # Contributing to ZerithDB
 
-Thank you for your interest in ZerithDB! Every contribution — code, docs, tests, bug reports — matters enormously.
+Thank you for your interest in ZerithDB! Every contribution — code, docs, tests, bug reports —
+matters enormously.
 
 ---
 
 ## Code of Conduct
 
-ZerithDB follows the [Contributor Covenant v2.1](https://www.contributor-covenant.org/). Be kind and constructive. Violations → `conduct@zerithdb.dev`
+ZerithDB follows the [Contributor Covenant v2.1](https://www.contributor-covenant.org/). Be kind and
+constructive. Violations → `conduct@zerithdb.dev`
 
 ---
 
@@ -24,11 +26,11 @@ ZerithDB follows the [Contributor Covenant v2.1](https://www.contributor-covenan
 
 ### Prerequisites
 
-| Tool | Min Version | Install |
-|---|---|---|
-| Node.js | 20.x | [nodejs.org](https://nodejs.org) |
-| pnpm | 9.x | `npm i -g pnpm` |
-| Git | 2.x | [git-scm.com](https://git-scm.com) |
+| Tool    | Min Version | Install                            |
+| ------- | ----------- | ---------------------------------- |
+| Node.js | 20.x        | [nodejs.org](https://nodejs.org)   |
+| pnpm    | 9.x         | `npm i -g pnpm`                    |
+| Git     | 2.x         | [git-scm.com](https://git-scm.com) |
 
 ### Bootstrap
 
@@ -56,7 +58,9 @@ pnpm --filter @zerithdb/todo-app dev
 
 ### 1. Find or Create an Issue
 
-- Browse [`good-first-issue`](https://github.com/zerithdb/zerithdb/issues?q=label%3Agood-first-issue) or [`help-wanted`](https://github.com/zerithdb/zerithdb/issues?q=label%3Ahelp-wanted).
+- Browse
+  [`good-first-issue`](https://github.com/zerithdb/zerithdb/issues?q=label%3Agood-first-issue) or
+  [`help-wanted`](https://github.com/zerithdb/zerithdb/issues?q=label%3Ahelp-wanted).
 - For features, open a Discussion before writing code.
 - Comment "I'll work on this" to claim an issue.
 
@@ -99,22 +103,25 @@ git commit -m "fix(sync): resolve race condition in CRDT merge"
 
 ```typescript
 import { ZerithDBError, ErrorCode } from "@zerithdb/core";
-throw new ZerithDBError(ErrorCode.DB_WRITE_FAILED, `Failed to write to "${collection}"`, { cause: err });
+throw new ZerithDBError(ErrorCode.DB_WRITE_FAILED, `Failed to write to "${collection}"`, {
+  cause: err,
+});
 ```
 
 ### Exports
 
-Each package exports only its public API from `src/index.ts`. Internal code lives in `src/internal/` and is never exported.
+Each package exports only its public API from `src/index.ts`. Internal code lives in `src/internal/`
+and is never exported.
 
 ---
 
 ## Testing Strategy
 
-| Layer | Tool | Location |
-|---|---|---|
-| Unit | Vitest | `packages/*/src/__tests__/` |
-| Integration | Vitest | `tests/integration/` |
-| E2E | Playwright | `tests/e2e/` |
+| Layer       | Tool       | Location                    |
+| ----------- | ---------- | --------------------------- |
+| Unit        | Vitest     | `packages/*/src/__tests__/` |
+| Integration | Vitest     | `tests/integration/`        |
+| E2E         | Playwright | `tests/e2e/`                |
 
 ```bash
 pnpm test                    # all tests
@@ -124,6 +131,7 @@ pnpm --filter @zerithdb/db test --watch
 ```
 
 **Rules:**
+
 - Every bug fix must include a regression test.
 - Every new public API must have unit tests.
 - Test behavior, not implementation. Avoid mocking internal ZerithDB code.
@@ -132,24 +140,24 @@ pnpm --filter @zerithdb/db test --watch
 
 ## Issue Labels
 
-| Label | Meaning |
-|---|---|
+| Label              | Meaning                                          |
+| ------------------ | ------------------------------------------------ |
 | `good-first-issue` | Welcoming to newcomers — scoped and well-defined |
-| `help-wanted` | Core team needs community bandwidth |
-| `high-impact` | Critical path for v1.0 |
-| `core` | Changes to architecture or `@zerithdb/core` |
-| `bug` | Confirmed bug with reproduction steps |
-| `enhancement` | New feature or improvement |
-| `docs` | Documentation only |
-| `performance` | Performance regression or improvement |
-| `breaking-change` | Requires a major version bump |
+| `help-wanted`      | Core team needs community bandwidth              |
+| `high-impact`      | Critical path for v1.0                           |
+| `core`             | Changes to architecture or `@zerithdb/core`      |
+| `bug`              | Confirmed bug with reproduction steps            |
+| `enhancement`      | New feature or improvement                       |
+| `docs`             | Documentation only                               |
+| `performance`      | Performance regression or improvement            |
+| `breaking-change`  | Requires a major version bump                    |
 
 ---
 
 ## Pull Request Checklist
 
 - [ ] `pnpm test` passes
-- [ ] `pnpm typecheck` shows no errors  
+- [ ] `pnpm typecheck` shows no errors
 - [ ] `pnpm lint` passes
 - [ ] `pnpm format:check` passes
 - [ ] New/changed public APIs have TSDoc comments
@@ -176,12 +184,12 @@ Maintainers handle the actual npm publish via the automated Release PR workflow.
 
 ## Getting Help
 
-| Where | When |
-|---|---|
-| [GitHub Issues](https://github.com/zerithdb/zerithdb/issues) | Bug reports, feature requests |
-| [GitHub Discussions](https://github.com/zerithdb/zerithdb/discussions) | Ideas, questions |
-| [Discord `#contributors`](https://discord.gg/MhvuDvzWfF) | Real-time help |
+| Where                                                                  | When                          |
+| ---------------------------------------------------------------------- | ----------------------------- |
+| [GitHub Issues](https://github.com/zerithdb/zerithdb/issues)           | Bug reports, feature requests |
+| [GitHub Discussions](https://github.com/zerithdb/zerithdb/discussions) | Ideas, questions              |
+| [Discord `#contributors`](https://discord.gg/MhvuDvzWfF)               | Real-time help                |
 
 ---
 
-*Every line you write, every test you add, every doc you improve — it matters.*
+_Every line you write, every test you add, every doc you improve — it matters._

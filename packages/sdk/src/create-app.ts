@@ -1,5 +1,5 @@
 import type { ZerithDBConfig } from "@zerithdb/core";
-import { DbClient } from "./db-client.js";
+import { DbClient, CollectionClient } from "./db-client.js";
 import { SyncEngine } from "./sync-engine.js";
 import { AuthManager } from "./auth-manager.js";
 import { NetworkManager } from "./network-manager.js";
@@ -22,7 +22,7 @@ export interface ZerithDBApp {
    * const all = await todos.find({});
    * ```
    */
-  db(name: string): DbClient;
+  db<T extends Record<string, any> = Record<string, any>>(name: string): CollectionClient<T>;
 
   /** CRDT sync engine — manages Yjs documents and P2P update propagation */
   sync: SyncEngine;
@@ -90,17 +90,17 @@ export function createApp(config: ZerithDBConfig): ZerithDBApp {
   const network = new NetworkManager(resolvedConfig, auth);
   const sync = new SyncEngine(resolvedConfig, db, network);
 
-  const collectionCache = new Map<string, DbClient>();
+  const collectionCache = new Map<string, CollectionClient<any>>();
 
   return {
     config: Object.freeze(resolvedConfig),
 
-    db(name: string): DbClient {
+    db<T extends Record<string, any>>(name: string): CollectionClient<T> {
       if (!collectionCache.has(name)) {
         collectionCache.set(name, db.collection(name));
       }
       // biome-ignore lint: cache guarantees this is defined
-      return collectionCache.get(name)!;
+      return collectionCache.get(name) as CollectionClient<T>;
     },
 
     sync,
@@ -108,11 +108,7 @@ export function createApp(config: ZerithDBConfig): ZerithDBApp {
     network,
 
     async dispose(): Promise<void> {
-      await Promise.all([
-        sync.dispose(),
-        network.dispose(),
-        db.dispose(),
-      ]);
+      await Promise.all([sync.dispose(), network.dispose(), db.dispose()]);
     },
   };
 }

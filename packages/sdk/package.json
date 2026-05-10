@@ -2,7 +2,15 @@
   "name": "@zerithdb/sdk",
   "version": "0.1.0",
   "description": "ZerithDB SDK — build full-stack apps with zero backend",
-  "keywords": ["local-first", "p2p", "webrtc", "crdt", "offline", "sync", "database"],
+  "keywords": [
+    "local-first",
+    "p2p",
+    "webrtc",
+    "crdt",
+    "offline",
+    "sync",
+    "database"
+  ],
   "homepage": "https://zerithdb.dev",
   "repository": {
     "type": "git",
@@ -46,5 +54,8 @@
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   },
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ]
 }

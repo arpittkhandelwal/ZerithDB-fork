@@ -4,10 +4,22 @@
   "commit": false,
   "fixed": [],
   "linked": [
-    ["@zerithdb/core", "@zerithdb/db", "@zerithdb/sync", "@zerithdb/network", "@zerithdb/auth", "@zerithdb/sdk"]
+    [
+      "@zerithdb/core",
+      "@zerithdb/db",
+      "@zerithdb/sync",
+      "@zerithdb/network",
+      "@zerithdb/auth",
+      "@zerithdb/sdk"
+    ]
   ],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@zerithdb/todo-app", "@zerithdb/chat-app", "@zerithdb/notes-app", "@zerithdb/playground"]
+  "ignore": [
+    "@zerithdb/todo-app",
+    "@zerithdb/chat-app",
+    "@zerithdb/notes-app",
+    "@zerithdb/playground"
+  ]
 }

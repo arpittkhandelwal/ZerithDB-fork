@@ -3,7 +3,7 @@ import { IndexeddbPersistence } from "y-indexeddb";
 import type { ZerithDBConfig, SyncState } from "@zerithdb/core";
 import { EventEmitter } from "@zerithdb/core";
 import type { DbClient } from "@zerithdb/db";
-import type { NetworkManager } from "./network-manager.js";
+import type { NetworkManager } from "@zerithdb/network";
 
 type SyncEvents = {
   "state:change": SyncState;
@@ -113,17 +113,10 @@ export class SyncEngine extends EventEmitter<SyncEvents> {
 
   // ─── Private ──────────────────────────────────────────────────────────────
 
-  private onPeerUpdate(msg: {
-    type: string;
-    payload: Uint8Array | string;
-    from: string;
-  }): void {
+  private onPeerUpdate(msg: { type: string; payload: Uint8Array | string; from: string }): void {
     if (msg.type !== "sync-update") return;
 
-    const payload =
-      typeof msg.payload === "string"
-        ? base64ToBytes(msg.payload)
-        : msg.payload;
+    const payload = typeof msg.payload === "string" ? base64ToBytes(msg.payload) : msg.payload;
 
     const decoded = this.decodeMessage(payload);
     if (decoded === null) return;

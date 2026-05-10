@@ -13,8 +13,7 @@ interface Message {
 const pb = createApp({
   appId: "zerithdb-chat-demo",
   sync: {
-    signalingUrl:
-      process.env["NEXT_PUBLIC_SIGNALING_URL"] ?? "ws://localhost:4000",
+    signalingUrl: process.env["NEXT_PUBLIC_SIGNALING_URL"] ?? "ws://localhost:4000",
   },
 });
 
@@ -33,9 +32,11 @@ export default function ChatApp() {
 
   useEffect(() => {
     pb.auth.signIn().then((id) => setMyDid(id.did));
-    pb.db("messages").find({}).then((docs) => {
-      setMessages((docs as Document<Message>[]).sort((a, b) => a.sentAt - b.sentAt));
-    });
+    pb.db("messages")
+      .find({})
+      .then((docs) => {
+        setMessages((docs as Document<Message>[]).sort((a, b) => a.sentAt - b.sentAt));
+      });
     const interval = setInterval(() => setPeers(pb.network.connectedPeerCount), 2000);
     return () => clearInterval(interval);
   }, []);
@@ -82,10 +83,10 @@ export default function ChatApp() {
           <p className="text-gray-500 text-xs">Built on ZerithDB · No server</p>
         </div>
         <div className="flex items-center gap-2">
-          <span
-            className={`w-2 h-2 rounded-full ${peers > 0 ? "bg-green-400" : "bg-gray-600"}`}
-          />
-          <span className="text-gray-400 text-sm">{peers} peer{peers !== 1 ? "s" : ""}</span>
+          <span className={`w-2 h-2 rounded-full ${peers > 0 ? "bg-green-400" : "bg-gray-600"}`} />
+          <span className="text-gray-400 text-sm">
+            {peers} peer{peers !== 1 ? "s" : ""}
+          </span>
           <span className="ml-3 text-xs bg-gray-800 text-cyan-400 px-2 py-1 rounded-full">
             {myAlias}
           </span>
@@ -107,11 +108,10 @@ export default function ChatApp() {
         {messages.map((msg) => {
           const isMe = msg.senderDid === myDid;
           return (
-            <div
-              key={msg._id}
-              className={`flex ${isMe ? "justify-end" : "justify-start"}`}
-            >
-              <div className={`max-w-xs lg:max-w-md ${isMe ? "items-end" : "items-start"} flex flex-col gap-1`}>
+            <div key={msg._id} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
+              <div
+                className={`max-w-xs lg:max-w-md ${isMe ? "items-end" : "items-start"} flex flex-col gap-1`}
+              >
                 {!isMe && (
                   <span
                     className="text-xs font-medium px-1"
@@ -129,9 +129,7 @@ export default function ChatApp() {
                 >
                   {msg.text}
                 </div>
-                <span className="text-gray-700 text-xs px-1">
-                  {formatTime(msg.sentAt)}
-                </span>
+                <span className="text-gray-700 text-xs px-1">{formatTime(msg.sentAt)}</span>
               </div>
             </div>
           );

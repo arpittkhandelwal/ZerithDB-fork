@@ -6,8 +6,8 @@ import type { AuthManager } from "@zerithdb/auth";
 type NetworkEvents = {
   "peer:connected": PeerInfo;
   "peer:disconnected": { peerId: PeerId };
-  "message": { type: string; payload: Uint8Array | string; from: PeerId };
-  "error": { peerId: PeerId; error: Error };
+  message: { type: string; payload: Uint8Array | string; from: PeerId };
+  error: { peerId: PeerId; error: Error };
 };
 
 interface SignalingMessage {
@@ -69,11 +69,9 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
 
       this.ws.onerror = (err) => {
         reject(
-          new ZerithDBError(
-            ErrorCode.NETWORK_SIGNALING_FAILED,
-            "WebSocket signaling error",
-            { cause: err }
-          )
+          new ZerithDBError(ErrorCode.NETWORK_SIGNALING_FAILED, "WebSocket signaling error", {
+            cause: err,
+          })
         );
       };
 
@@ -161,20 +159,16 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
         break;
 
       case "answer":
-        this.peers.get(msg.from)?.signal(msg.payload);
+        this.peers.get(msg.from)?.signal(msg.payload as any);
         break;
 
       case "ice-candidate":
-        this.peers.get(msg.from)?.signal(msg.payload);
+        this.peers.get(msg.from)?.signal(msg.payload as any);
         break;
     }
   }
 
-  private createPeer(
-    remotePeerId: PeerId,
-    initiator: boolean,
-    offerPayload?: unknown
-  ): void {
+  private createPeer(remotePeerId: PeerId, initiator: boolean, offerPayload?: unknown): void {
     if (this.peers.has(remotePeerId)) return;
 
     const maxPeers = this.config.sync?.maxPeers ?? 10;
@@ -192,7 +186,7 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
     });
 
     if (!initiator && offerPayload !== undefined) {
-      peer.signal(offerPayload);
+      peer.signal(offerPayload as any);
     }
 
     peer.on("signal", (data) => {
@@ -209,7 +203,7 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
     peer.on("connect", () => {
       const info: PeerInfo = {
         peerId: remotePeerId,
-        did: "",           // filled in via auth handshake message
+        did: "", // filled in via auth handshake message
         publicKey: "",
         connectedAt: Date.now(),
       };

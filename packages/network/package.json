@@ -23,6 +23,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
+    "@zerithdb/auth": "workspace:*",
     "@zerithdb/core": "workspace:*",
     "simple-peer": "^9.11.1"
   },
@@ -35,5 +36,8 @@
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   },
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ]
 }

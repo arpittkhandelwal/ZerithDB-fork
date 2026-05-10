@@ -11,10 +11,7 @@ export function isPlainObject(value: unknown): value is Record<string, unknown> 
 }
 
 /** Asserts a value is not null or undefined, throws with a message if it is */
-export function assertDefined<T>(
-  value: T | null | undefined,
-  message: string
-): asserts value is T {
+export function assertDefined<T>(value: T | null | undefined, message: string): asserts value is T {
   if (value === null || value === undefined) {
     throw new Error(message);
   }
@@ -70,9 +67,7 @@ export async function withTimeout<T>(
 ): Promise<T> {
   return Promise.race([
     fn(),
-    new Promise<never>((_, reject) =>
-      setTimeout(() => reject(new Error(timeoutMessage)), ms)
-    ),
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error(timeoutMessage)), ms)),
   ]);
 }
 

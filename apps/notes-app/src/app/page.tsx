@@ -13,8 +13,7 @@ interface Note {
 const pb = createApp({
   appId: "zerithdb-notes-demo",
   sync: {
-    signalingUrl:
-      process.env["NEXT_PUBLIC_SIGNALING_URL"] ?? "ws://localhost:4000",
+    signalingUrl: process.env["NEXT_PUBLIC_SIGNALING_URL"] ?? "ws://localhost:4000",
   },
 });
 
@@ -41,9 +40,7 @@ export default function NotesApp() {
 
   async function loadNotes() {
     const docs = await pb.db("notes").find({});
-    const sorted = (docs as Document<Note>[]).sort(
-      (a, b) => b._updatedAt - a._updatedAt
-    );
+    const sorted = (docs as Document<Note>[]).sort((a, b) => b._updatedAt - a._updatedAt);
     setNotes(sorted);
     if (sorted.length > 0 && selectedId === null) {
       setSelectedId(sorted[0]?._id ?? null);
@@ -64,17 +61,14 @@ export default function NotesApp() {
 
   const autoSave = useCallback(
     (id: string, field: "title" | "content", value: string) => {
-      setNotes((prev) =>
-        prev.map((n) => (n._id === id ? { ...n, [field]: value } : n))
-      );
+      setNotes((prev) => prev.map((n) => (n._id === id ? { ...n, [field]: value } : n)));
       setIsSaving(true);
 
       if (saveTimer.current) clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(async () => {
-        await pb.db("notes").update(
-          { _id: id } as never,
-          { $set: { [field]: value, updatedBy: myDid } }
-        );
+        await pb
+          .db("notes")
+          .update({ _id: id } as never, { $set: { [field]: value, updatedBy: myDid } });
         setIsSaving(false);
       }, 600);
     },
@@ -101,11 +95,7 @@ export default function NotesApp() {
               Peer<span className="text-cyan-400">Notes</span>
             </h1>
             <p className="text-gray-600 text-xs">
-              {peers > 0 ? (
-                <span className="text-green-500">{peers} syncing</span>
-              ) : (
-                "local only"
-              )}
+              {peers > 0 ? <span className="text-green-500">{peers} syncing</span> : "local only"}
             </p>
           </div>
           <button

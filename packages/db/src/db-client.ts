@@ -1,13 +1,19 @@
 import Dexie, { type Table } from "dexie";
 import { v7 as uuidv7 } from "uuid";
-import type { ZerithDBConfig, Document, QueryFilter, InsertResult, UpdateSpec } from "@zerithdb/core";
+import type {
+  ZerithDBConfig,
+  Document,
+  QueryFilter,
+  InsertResult,
+  UpdateSpec,
+} from "@zerithdb/core";
 import { ZerithDBError, ErrorCode } from "@zerithdb/core";
 
 /**
  * A handle to a single named collection within the ZerithDB local database.
  * All operations are async and backed by IndexedDB.
  */
-export class CollectionClient<T extends Record<string, unknown> = Record<string, unknown>> {
+export class CollectionClient<T extends Record<string, any> = Record<string, any>> {
   constructor(
     private readonly table: Table<Document<T>>,
     private readonly collectionName: string
@@ -156,20 +162,20 @@ export class CollectionClient<T extends Record<string, unknown> = Record<string,
 
   private matchesFilter(doc: Document<T>, filter: QueryFilter<T>): boolean {
     for (const [key, condition] of Object.entries(filter)) {
-      const fieldValue = (doc as Record<string, unknown>)[key];
+      const fieldValue = (doc as Record<string, any>)[key];
 
       if (condition === null || typeof condition !== "object") {
         if (fieldValue !== condition) return false;
         continue;
       }
 
-      const ops = condition as Record<string, unknown>;
+      const ops = condition as Record<string, any>;
       if ("$eq" in ops && fieldValue !== ops["$eq"]) return false;
       if ("$ne" in ops && fieldValue === ops["$ne"]) return false;
-      if ("$gt" in ops && !(fieldValue > (ops["$gt"] as never))) return false;
-      if ("$gte" in ops && !(fieldValue >= (ops["$gte"] as never))) return false;
-      if ("$lt" in ops && !(fieldValue < (ops["$lt"] as never))) return false;
-      if ("$lte" in ops && !(fieldValue <= (ops["$lte"] as never))) return false;
+      if ("$gt" in ops && !((fieldValue as any) > (ops["$gt"] as never))) return false;
+      if ("$gte" in ops && !((fieldValue as any) >= (ops["$gte"] as never))) return false;
+      if ("$lt" in ops && !((fieldValue as any) < (ops["$lt"] as never))) return false;
+      if ("$lte" in ops && !((fieldValue as any) <= (ops["$lte"] as never))) return false;
       if ("$in" in ops && !(ops["$in"] as unknown[]).includes(fieldValue)) return false;
       if ("$nin" in ops && (ops["$nin"] as unknown[]).includes(fieldValue)) return false;
     }
@@ -178,26 +184,26 @@ export class CollectionClient<T extends Record<string, unknown> = Record<string,
 }
 
 class ZerithDBDexie extends Dexie {
-  private readonly tables = new Map<string, Table>();
+  private readonly tableMap = new Map<string, Table>();
 
   constructor(appId: string) {
     super(`zerithdb_${appId}`);
   }
 
   ensureCollection(name: string): Table {
-    if (!this.tables.has(name)) {
+    if (!this.tableMap.has(name)) {
       // Dexie requires version upgrade to add tables — we use a dynamic schema pattern
       const version = (this.verno ?? 0) + 1;
-      const existingTableNames = this.tables.keys();
+      const existingTableNames = this.tableMap.keys();
       const schema: Record<string, string> = { [name]: "_id, _createdAt, _updatedAt" };
       for (const existingName of existingTableNames) {
         schema[existingName] = "_id, _createdAt, _updatedAt";
       }
       this.version(version).stores(schema);
-      this.tables.set(name, this.table(name));
+      this.tableMap.set(name, this.table(name));
     }
     // biome-ignore lint: map guarantees this is defined
-    return this.tables.get(name)!;
+    return this.tableMap.get(name)!;
   }
 }
 
@@ -207,13 +213,14 @@ class ZerithDBDexie extends Dexie {
  */
 export class DbClient {
   private readonly dexie: ZerithDBDexie;
-  private readonly collections = new Map<string, CollectionClient>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private readonly collections = new Map<string, CollectionClient<any>>();
 
   constructor(config: ZerithDBConfig) {
     this.dexie = new ZerithDBDexie(config.appId);
   }
 
-  collection<T extends Record<string, unknown>>(name: string): CollectionClient<T> {
+  collection<T extends Record<string, any>>(name: string): CollectionClient<T> {
     if (!this.collections.has(name)) {
       const table = this.dexie.ensureCollection(name);
       this.collections.set(name, new CollectionClient<T>(table as Table<Document<T>>, name));

@@ -16,8 +16,7 @@ interface Todo {
 const pb = createApp({
   appId: "zerithdb-todo-demo",
   sync: {
-    signalingUrl:
-      process.env["NEXT_PUBLIC_SIGNALING_URL"] ?? "ws://localhost:4000",
+    signalingUrl: process.env["NEXT_PUBLIC_SIGNALING_URL"] ?? "ws://localhost:4000",
   },
 });
 
@@ -64,17 +63,13 @@ export default function TodoApp() {
     } as Todo);
 
     const updated = await pb.db("todos").find({});
-    setTodos(
-      (updated as Document<Todo>[]).sort((a, b) => a._createdAt - b._createdAt)
-    );
+    setTodos((updated as Document<Todo>[]).sort((a, b) => a._createdAt - b._createdAt));
   }
 
   async function toggleTodo(id: string, current: boolean) {
     await pb.db("todos").update({ _id: id } as never, { $set: { done: !current } });
     const updated = await pb.db("todos").find({});
-    setTodos(
-      (updated as Document<Todo>[]).sort((a, b) => a._createdAt - b._createdAt)
-    );
+    setTodos((updated as Document<Todo>[]).sort((a, b) => a._createdAt - b._createdAt));
   }
 
   async function deleteTodo(id: string) {

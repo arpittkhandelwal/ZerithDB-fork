@@ -5,9 +5,9 @@ import { ZerithDBError, ErrorCode } from "../../packages/core/src/internal/error
 // ─── EventEmitter ─────────────────────────────────────────────────────────────
 
 type TestEvents = {
-  "data": { value: number };
-  "error": { message: string };
-  "done": undefined;
+  data: { value: number };
+  error: { message: string };
+  done: undefined;
 };
 
 describe("EventEmitter", () => {

@@ -2,10 +2,10 @@
 
 ## Supported Versions
 
-| Version | Supported |
-|---|---|
+| Version           | Supported             |
+| ----------------- | --------------------- |
 | `0.1.x` (current) | ✅ Active development |
-| Earlier | ❌ Not supported |
+| Earlier           | ❌ Not supported      |
 
 ZerithDB is in **alpha**. APIs and security properties are subject to change.
 
@@ -24,7 +24,8 @@ Instead, email **security@zerithdb.dev** with:
 
 You will receive an acknowledgement within **48 hours** and a full response within **7 days**.
 
-We follow **coordinated disclosure** — we will work with you on a fix before any public disclosure, and we will credit you in the security advisory unless you prefer to remain anonymous.
+We follow **coordinated disclosure** — we will work with you on a fix before any public disclosure,
+and we will credit you in the security advisory unless you prefer to remain anonymous.
 
 ---
 
@@ -42,17 +43,23 @@ Understanding ZerithDB's security design helps identify what is and isn't in sco
 
 ### Out of Scope (by design, documented limitations)
 
-- **Private keys in localStorage** — vulnerable to XSS. We know. Mitigation planned for v0.5 (non-extractable WebCrypto keys). For now, treat XSS prevention as the app developer's responsibility.
-- **Peer data visibility** — any peer with the room ID can read all data in that room. Fine-grained access control is on the roadmap (v0.4). ZerithDB is not suitable for private data without collection-level encryption (also v0.4).
-- **Signaling server metadata** — the signaling server sees IP addresses of connecting peers. This is inherent to WebSocket connections.
-- **Browser security bugs** — vulnerabilities in V8, WebRTC stack, or IndexedDB implementations are out of scope.
+- **Private keys in localStorage** — vulnerable to XSS. We know. Mitigation planned for v0.5
+  (non-extractable WebCrypto keys). For now, treat XSS prevention as the app developer's
+  responsibility.
+- **Peer data visibility** — any peer with the room ID can read all data in that room. Fine-grained
+  access control is on the roadmap (v0.4). ZerithDB is not suitable for private data without
+  collection-level encryption (also v0.4).
+- **Signaling server metadata** — the signaling server sees IP addresses of connecting peers. This
+  is inherent to WebSocket connections.
+- **Browser security bugs** — vulnerabilities in V8, WebRTC stack, or IndexedDB implementations are
+  out of scope.
 
 ---
 
 ## Responsible Disclosure Hall of Fame
 
-*We will list security researchers who responsibly disclosed vulnerabilities here.*
+_We will list security researchers who responsibly disclosed vulnerabilities here._
 
-| Researcher | Vulnerability | Fixed in |
-|---|---|---|
-| *(none yet)* | | |
+| Researcher   | Vulnerability | Fixed in |
+| ------------ | ------------- | -------- |
+| _(none yet)_ |               |          |

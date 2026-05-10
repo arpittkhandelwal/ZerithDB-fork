@@ -44,13 +44,9 @@ wss.on("connection", (ws, req) => {
   console.log(`[+] peer=${peerId} joined room=${roomId} (room size: ${room.size})`);
 
   // Send the new peer the list of existing peers
-  const existingPeerIds = [...room]
-    .filter((p) => p.peerId !== peerId)
-    .map((p) => p.peerId);
+  const existingPeerIds = [...room].filter((p) => p.peerId !== peerId).map((p) => p.peerId);
 
-  ws.send(
-    JSON.stringify({ type: "peer-list", from: "server", payload: existingPeerIds })
-  );
+  ws.send(JSON.stringify({ type: "peer-list", from: "server", payload: existingPeerIds }));
 
   // Relay messages between peers
   ws.on("message", (data) => {

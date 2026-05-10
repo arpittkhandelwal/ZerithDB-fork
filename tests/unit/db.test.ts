@@ -82,11 +82,7 @@ describe("DbClient — CollectionClient", () => {
 
     it("should support $in operator", async () => {
       const col = db.collection<{ status: string }>("items");
-      await col.insertMany([
-        { status: "open" },
-        { status: "closed" },
-        { status: "pending" },
-      ]);
+      await col.insertMany([{ status: "open" }, { status: "closed" }, { status: "pending" }]);
       const active = await col.find({ status: { $in: ["open", "pending"] } });
       expect(active).toHaveLength(2);
     });

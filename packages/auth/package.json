@@ -23,8 +23,9 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@zerithdb/core": "workspace:*",
     "@noble/ed25519": "^2.1.0",
+    "@noble/hashes": "^2.2.0",
+    "@zerithdb/core": "workspace:*",
     "multiformats": "^13.1.0"
   },
   "devDependencies": {
@@ -35,5 +36,8 @@
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   },
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ]
 }

@@ -119,25 +119,17 @@ async function scaffoldTemplate(
     },
   };
 
-  await fs.writeFile(
-    path.join(targetDir, "package.json"),
-    JSON.stringify(pkg, null, 2)
-  );
+  await fs.writeFile(path.join(targetDir, "package.json"), JSON.stringify(pkg, null, 2));
 
   // Write minimal app entry
   await fs.mkdir(path.join(targetDir, "src"), { recursive: true });
 
-  const indexContent = template === "todo"
-    ? todoTemplate(appName)
-    : blankTemplate(appName);
+  const indexContent = template === "todo" ? todoTemplate(appName) : blankTemplate(appName);
 
   await fs.writeFile(path.join(targetDir, "src", "App.tsx"), indexContent);
 
   // .gitignore
-  await fs.writeFile(
-    path.join(targetDir, ".gitignore"),
-    "node_modules\n.next\ndist\n.env\n"
-  );
+  await fs.writeFile(path.join(targetDir, ".gitignore"), "node_modules\n.next\ndist\n.env\n");
 }
 
 function todoTemplate(appName: string): string {

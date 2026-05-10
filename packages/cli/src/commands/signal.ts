@@ -4,9 +4,7 @@ import { execa } from "execa";
 export async function signalCommand(options: { port: string }): Promise<void> {
   const port = parseInt(options.port, 10);
 
-  console.log(
-    chalk.cyan(`\n🔗 Starting ZerithDB signaling server on port ${port}...\n`)
-  );
+  console.log(chalk.cyan(`\n🔗 Starting ZerithDB signaling server on port ${port}...\n`));
 
   try {
     await execa(

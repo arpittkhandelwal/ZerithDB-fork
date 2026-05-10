@@ -12,7 +12,9 @@
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/MhvuDvzWfF)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[**Documentation**](https://zerithdb.dev/docs) · [**Live Playground**](https://playground.zerithdb.dev) · [**Discord**](https://discord.gg/MhvuDvzWfF) · [**Roadmap**](ROADMAP.md)
+[**Documentation**](https://zerithdb.dev/docs) ·
+[**Live Playground**](https://playground.zerithdb.dev) ·
+[**Discord**](https://discord.gg/MhvuDvzWfF) · [**Roadmap**](ROADMAP.md)
 
 </div>
 
@@ -20,14 +22,17 @@
 
 ## What is ZerithDB?
 
-ZerithDB is a **local-first, peer-to-peer application platform** that eliminates the need for traditional backend infrastructure. Think of it as Supabase — but instead of a centralized server, your users' browsers form a resilient, encrypted mesh network.
+ZerithDB is a **local-first, peer-to-peer application platform** that eliminates the need for
+traditional backend infrastructure. Think of it as Supabase — but instead of a centralized server,
+your users' browsers form a resilient, encrypted mesh network.
 
 - **No backend to manage.** No servers, no databases, no DevOps.
 - **Works offline.** All data lives locally first, syncs opportunistically.
 - **Conflict-free by design.** CRDT-based sync means merges just work.
 - **Private by default.** Public/private key identity — no passwords, no auth servers.
 
-> ZerithDB is in **alpha**. APIs will change. Feedback is our oxygen — [open an issue](https://github.com/zerithdb/zerithdb/issues).
+> ZerithDB is in **alpha**. APIs will change. Feedback is our oxygen —
+> [open an issue](https://github.com/zerithdb/zerithdb/issues).
 
 ---
 
@@ -58,14 +63,14 @@ That's it. No `.env` files. No `docker-compose.yml`. No cloud accounts.
 
 ## Features
 
-| Feature | Description |
-|---|---|
-| 🗄️ **Local Database** | IndexedDB-backed via Dexie. MongoDB-style query API. Reactive live queries. |
-| 🔄 **CRDT Sync** | Yjs-powered conflict-free sync. Merge without servers. Works across browser tabs, devices, and peers. |
-| 🕸️ **P2P Network** | WebRTC mesh via `simple-peer`. Minimal signaling server (only for initial handshake). |
-| 🔐 **Keychain Auth** | Ed25519 keypair identity. Sign-in is `generateKey()`. No email, no OAuth, no passwords. |
-| 📦 **Modular SDK** | Tree-shakeable. Use only what you need. Works with React, Vue, Svelte, or vanilla JS. |
-| ⚡ **Zero Config CLI** | `npx zerithdb init` bootstraps a full project in seconds. |
+| Feature                | Description                                                                                           |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- |
+| 🗄️ **Local Database**  | IndexedDB-backed via Dexie. MongoDB-style query API. Reactive live queries.                           |
+| 🔄 **CRDT Sync**       | Yjs-powered conflict-free sync. Merge without servers. Works across browser tabs, devices, and peers. |
+| 🕸️ **P2P Network**     | WebRTC mesh via `simple-peer`. Minimal signaling server (only for initial handshake).                 |
+| 🔐 **Keychain Auth**   | Ed25519 keypair identity. Sign-in is `generateKey()`. No email, no OAuth, no passwords.               |
+| 📦 **Modular SDK**     | Tree-shakeable. Use only what you need. Works with React, Vue, Svelte, or vanilla JS.                 |
+| ⚡ **Zero Config CLI** | `npx zerithdb init` bootstraps a full project in seconds.                                             |
 
 ---
 
@@ -128,31 +133,32 @@ const app = createApp({
                              └──────────────────────┘
 ```
 
-The signaling server **never sees your data**. It only brokers the initial WebRTC handshake. After that, peers communicate directly.
+The signaling server **never sees your data**. It only brokers the initial WebRTC handshake. After
+that, peers communicate directly.
 
 ---
 
 ## Packages
 
-| Package | Version | Description |
-|---|---|---|
-| [`@zerithdb/sdk`](packages/sdk) | ![npm](https://img.shields.io/npm/v/@zerithdb/sdk) | Main developer-facing API |
-| [`@zerithdb/db`](packages/db) | ![npm](https://img.shields.io/npm/v/@zerithdb/db) | IndexedDB adapter (Dexie wrapper) |
-| [`@zerithdb/sync`](packages/sync) | ![npm](https://img.shields.io/npm/v/@zerithdb/sync) | CRDT sync engine (Yjs) |
-| [`@zerithdb/network`](packages/network) | ![npm](https://img.shields.io/npm/v/@zerithdb/network) | WebRTC P2P layer |
-| [`@zerithdb/auth`](packages/auth) | ![npm](https://img.shields.io/npm/v/@zerithdb/auth) | Keypair identity management |
-| [`@zerithdb/core`](packages/core) | ![npm](https://img.shields.io/npm/v/@zerithdb/core) | Internal types, events, utilities |
-| [`@zerithdb/cli`](packages/cli) | ![npm](https://img.shields.io/npm/v/@zerithdb/cli) | `npx zerithdb init` CLI tool |
+| Package                                 | Version                                                | Description                       |
+| --------------------------------------- | ------------------------------------------------------ | --------------------------------- |
+| [`@zerithdb/sdk`](packages/sdk)         | ![npm](https://img.shields.io/npm/v/@zerithdb/sdk)     | Main developer-facing API         |
+| [`@zerithdb/db`](packages/db)           | ![npm](https://img.shields.io/npm/v/@zerithdb/db)      | IndexedDB adapter (Dexie wrapper) |
+| [`@zerithdb/sync`](packages/sync)       | ![npm](https://img.shields.io/npm/v/@zerithdb/sync)    | CRDT sync engine (Yjs)            |
+| [`@zerithdb/network`](packages/network) | ![npm](https://img.shields.io/npm/v/@zerithdb/network) | WebRTC P2P layer                  |
+| [`@zerithdb/auth`](packages/auth)       | ![npm](https://img.shields.io/npm/v/@zerithdb/auth)    | Keypair identity management       |
+| [`@zerithdb/core`](packages/core)       | ![npm](https://img.shields.io/npm/v/@zerithdb/core)    | Internal types, events, utilities |
+| [`@zerithdb/cli`](packages/cli)         | ![npm](https://img.shields.io/npm/v/@zerithdb/cli)     | `npx zerithdb init` CLI tool      |
 
 ---
 
 ## Demo Applications
 
-| App | Description | Live Demo |
-|---|---|---|
-| ✅ **Todo App** | Classic realtime todo with offline support | [todo.zerithdb.dev](https://todo.zerithdb.dev) |
-| 📝 **Collaborative Notes** | Google Docs-style concurrent editing | [notes.zerithdb.dev](https://notes.zerithdb.dev) |
-| 💬 **Offline Chat** | P2P chat — works even without internet | [chat.zerithdb.dev](https://chat.zerithdb.dev) |
+| App                        | Description                                | Live Demo                                        |
+| -------------------------- | ------------------------------------------ | ------------------------------------------------ |
+| ✅ **Todo App**            | Classic realtime todo with offline support | [todo.zerithdb.dev](https://todo.zerithdb.dev)   |
+| 📝 **Collaborative Notes** | Google Docs-style concurrent editing       | [notes.zerithdb.dev](https://notes.zerithdb.dev) |
+| 💬 **Offline Chat**        | P2P chat — works even without internet     | [chat.zerithdb.dev](https://chat.zerithdb.dev)   |
 
 ---
 
@@ -180,6 +186,7 @@ npx zerithdb types --output ./src/db.types.ts
 See [ROADMAP.md](ROADMAP.md) for the phased plan.
 
 Highlights:
+
 - **v0.2** — React hooks (`useQuery`, `useLiveQuery`)
 - **v0.3** — Server-assisted sync for large datasets
 - **v0.4** — Fine-grained access control (capability tokens)
@@ -198,18 +205,21 @@ pnpm install
 pnpm dev
 ```
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow, coding guidelines, and how to find good first issues.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow, coding guidelines, and how to find
+good first issues.
 
 Good places to start:
-- Issues labeled [`good-first-issue`](https://github.com/zerithdb/zerithdb/issues?q=label%3Agood-first-issue)
+
+- Issues labeled
+  [`good-first-issue`](https://github.com/zerithdb/zerithdb/issues?q=label%3Agood-first-issue)
 - Issues labeled [`help-wanted`](https://github.com/zerithdb/zerithdb/issues?q=label%3Ahelp-wanted)
 
 ---
 
 ## Community
 
-| | |
-|---|---|
+|                |                                                        |
+| -------------- | ------------------------------------------------------ |
 | 💬 **Discord** | [discord.gg/MhvuDvzWfF](https://discord.gg/MhvuDvzWfF) |
 
 ---

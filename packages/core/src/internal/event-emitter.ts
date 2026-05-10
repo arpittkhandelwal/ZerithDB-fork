@@ -16,10 +16,7 @@ type Listener<T> = (event: T) => void;
  * ```
  */
 export class EventEmitter<TEvents extends Record<string, unknown>> {
-  private readonly listeners = new Map<
-    keyof TEvents,
-    Set<Listener<TEvents[keyof TEvents]>>
-  >();
+  private readonly listeners = new Map<keyof TEvents, Set<Listener<TEvents[keyof TEvents]>>>();
 
   on<K extends keyof TEvents>(event: K, listener: Listener<TEvents[K]>): this {
     let set = this.listeners.get(event);
@@ -31,10 +28,7 @@ export class EventEmitter<TEvents extends Record<string, unknown>> {
     return this;
   }
 
-  once<K extends keyof TEvents>(
-    event: K,
-    listener: Listener<TEvents[K]>
-  ): this {
+  once<K extends keyof TEvents>(event: K, listener: Listener<TEvents[K]>): this {
     const wrapper = (payload: TEvents[K]) => {
       listener(payload);
       this.off(event, wrapper);
@@ -43,9 +37,7 @@ export class EventEmitter<TEvents extends Record<string, unknown>> {
   }
 
   off<K extends keyof TEvents>(event: K, listener: Listener<TEvents[K]>): this {
-    this.listeners
-      .get(event)
-      ?.delete(listener as Listener<TEvents[keyof TEvents]>);
+    this.listeners.get(event)?.delete(listener as Listener<TEvents[keyof TEvents]>);
     return this;
   }
 

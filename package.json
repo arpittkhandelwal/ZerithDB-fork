@@ -43,5 +43,8 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@9.7.0"
+  "packageManager": "pnpm@9.7.0",
+  "dependencies": {
+    "@noble/hashes": "^2.2.0"
+  }
 }
