@@ -1,7 +1,7 @@
 import asyncio
 import json
 import logging
-from typing import Dict, Optional, Callable, Awaitable
+from typing import Any, Dict, Optional, Callable, Awaitable
 
 import websockets
 from aiortc import RTCPeerConnection, RTCSessionDescription, RTCDataChannel
@@ -13,7 +13,7 @@ class NetworkManager:
     def __init__(self, signaling_url: str, local_peer_id: str):
         self.signaling_url = signaling_url
         self.local_peer_id = local_peer_id
-        self.ws: Optional[websockets.WebSocketClientProtocol] = None
+        self.ws: Optional[Any] = None
         self.peers: Dict[str, RTCPeerConnection] = {}
         self.channels: Dict[str, RTCDataChannel] = {}
         self.on_message: Optional[Callable[[dict, str], Awaitable[None]]] = None
