@@ -1,5 +1,5 @@
 {
-  "name": "@zerithdb/auth",
+  "name": "zerithdb-auth",
   "version": "0.1.0",
   "description": "Public/private key identity management for ZerithDB — no passwords",
   "license": "Apache-2.0",
@@ -25,12 +25,12 @@
   "dependencies": {
     "@noble/ed25519": "^2.1.0",
     "@noble/hashes": "^2.2.0",
-    "@zerithdb/core": "workspace:*",
+    "zerithdb-core": "workspace:*",
     "multiformats": "^13.1.0"
   },
   "devDependencies": {
-    "@zerithdb/eslint-config": "workspace:*",
-    "@zerithdb/tsconfig": "workspace:*",
+    "zerithdb-eslint-config": "workspace:*",
+    "zerithdb-tsconfig": "workspace:*",
     "rimraf": "^6.0.1",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",

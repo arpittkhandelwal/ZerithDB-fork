@@ -12,7 +12,7 @@ class ZerithClient:
     """
     A Python client for ZerithDB that joins a WebRTC P2P mesh network.
     """
-    def __init__(self, signaling_url: str = "wss://signal.zerithdb.dev"):
+    def __init__(self, signaling_url: str = "wss://arpitkhandelwal810-zerith-signaling.hf.space"):
         self.signaling_url = signaling_url
         self.peer_id = str(uuid.uuid4())
         self.network = NetworkManager(self.signaling_url, self.peer_id)

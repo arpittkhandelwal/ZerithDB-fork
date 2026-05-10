@@ -33,7 +33,7 @@ Python script is just another "peer" in the room!
 ## Getting Started
 
 ```bash
-pip install zerithdb
+pip install zerithdb-python
 ```
 
 ### Basic Example
@@ -44,7 +44,7 @@ from zerithdb import ZerithClient
 
 async def main():
     # Initialize the client and connect to a room
-    client = ZerithClient("wss://signal.zerithdb.dev")
+    client = ZerithClient("wss://zerith-signaling-523861363926.asia-south1.run.app")
     await client.connect("my-app-room-id")
 
     # Listen for new data

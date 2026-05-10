@@ -136,7 +136,7 @@ app.sync.awareness.on("change", (states) => { ... });
 
 - Add `awareness` property to `SyncEngine` using Yjs `Awareness` class
 - Wire awareness updates through the `NetworkManager` (separate message type: `"awareness"`)
-- Export `AwarenessState` type from `@zerithdb/core`
+- Export `AwarenessState` type from `zerithdb-core`
 - Integration test: two mocked peers exchange awareness updates
 - TSDoc on all public awareness APIs
 
@@ -149,7 +149,7 @@ app.sync.awareness.on("change", (states) => { ... });
 
 ## Issue #5
 
-**Title:** `[help-wanted] Add React hooks package (@zerithdb/react)`
+**Title:** `[help-wanted] Add React hooks package (zerithdb-react)`
 
 **Labels:** `help-wanted`, `enhancement`, `high-impact`
 
@@ -157,11 +157,11 @@ app.sync.awareness.on("change", (states) => { ... });
 
 **Description:**
 
-React is the most common frontend framework. We need a `@zerithdb/react` package that provides
+React is the most common frontend framework. We need a `zerithdb-react` package that provides
 idiomatic React hooks:
 
 ```typescript
-import { useQuery, useLiveQuery, useAuth, usePeers } from "@zerithdb/react";
+import { useQuery, useLiveQuery, useAuth, usePeers } from "zerithdb-react";
 
 function TodoList() {
   const { data: todos, loading } = useLiveQuery(app.db("todos"), { done: false });
@@ -199,7 +199,7 @@ quota is exceeded.
 
 **Requirements:**
 
-1. Add a `StorageManager` utility to `@zerithdb/db`:
+1. Add a `StorageManager` utility to `zerithdb-db`:
 
 ```typescript
 const storage = app.db.storage;
@@ -257,7 +257,7 @@ The current `NetworkManager` has a basic `scheduleReconnect()` but it has gaps:
 
 ## Issue #8
 
-**Title:** `[high-impact] Design and implement the @zerithdb/cli `zerithdb types` command`
+**Title:** `[high-impact] Design and implement the zerithdb-cli `zerithdb types` command`
 
 **Labels:** `high-impact`, `enhancement`, `cli`
 

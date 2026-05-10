@@ -1,1 +1,1 @@
-export { SyncEngine } from "@zerithdb/sync";
+export { SyncEngine } from "zerithdb-sync";

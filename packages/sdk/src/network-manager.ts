@@ -1,1 +1,1 @@
-export { NetworkManager } from "@zerithdb/network";
+export { NetworkManager } from "zerithdb-network";

@@ -1,0 +1,14 @@
+{
+  "extends": "zerithdb-tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "zerithdb-sdk": ["../sdk/src"],
+      "zerithdb-core": ["../core/src"]
+    }
+  },
+  "include": ["src"]
+}

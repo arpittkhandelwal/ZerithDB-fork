@@ -1,4 +1,4 @@
-import type { ZerithDBConfig } from "@zerithdb/core";
+import type { ZerithDBConfig } from "zerithdb-core";
 import { DbClient, CollectionClient } from "./db-client.js";
 import { SyncEngine } from "./sync-engine.js";
 import { AuthManager } from "./auth-manager.js";
@@ -54,7 +54,7 @@ export interface ZerithDBApp {
  *
  * @example
  * ```typescript
- * import { createApp } from "@zerithdb/sdk";
+ * import { createApp } from "zerithdb-sdk";
  *
  * const app = createApp({
  *   appId: "my-todo-app",

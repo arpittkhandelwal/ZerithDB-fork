@@ -1,5 +1,5 @@
 {
-  "name": "@zerithdb/cli",
+  "name": "zerithdb-cli",
   "version": "0.1.0",
   "description": "ZerithDB CLI — npx zerithdb init",
   "license": "Apache-2.0",
@@ -16,7 +16,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@zerithdb/core": "workspace:*",
+    "zerithdb-core": "workspace:*",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "execa": "^9.3.1",
@@ -24,8 +24,8 @@
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@zerithdb/eslint-config": "workspace:*",
-    "@zerithdb/tsconfig": "workspace:*",
+    "zerithdb-eslint-config": "workspace:*",
+    "zerithdb-tsconfig": "workspace:*",
     "@types/prompts": "^2.4.9",
     "rimraf": "^6.0.1",
     "tsup": "^8.2.4",

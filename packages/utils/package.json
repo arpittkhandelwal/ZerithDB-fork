@@ -1,5 +1,5 @@
 {
-  "name": "@zerithdb/utils",
+  "name": "zerithdb-utils",
   "version": "0.1.0",
   "description": "Internal shared utilities for ZerithDB packages",
   "license": "Apache-2.0",

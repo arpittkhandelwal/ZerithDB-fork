@@ -1,7 +1,7 @@
 import SimplePeer from "simple-peer";
-import type { ZerithDBConfig, PeerId, PeerInfo } from "@zerithdb/core";
-import { EventEmitter, ZerithDBError, ErrorCode } from "@zerithdb/core";
-import type { AuthManager } from "@zerithdb/auth";
+import type { ZerithDBConfig, PeerId, PeerInfo } from "zerithdb-core";
+import { EventEmitter, ZerithDBError, ErrorCode } from "zerithdb-core";
+import type { AuthManager } from "zerithdb-auth";
 
 type NetworkEvents = {
   "peer:connected": PeerInfo;
@@ -45,7 +45,7 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
    * After connection, WebRTC handshakes happen automatically.
    */
   async connect(roomId: string): Promise<void> {
-    const signalingUrl = this.config.sync?.signalingUrl ?? "wss://signal.zerithdb.dev";
+    const signalingUrl = this.config.sync?.signalingUrl ?? "wss://arpitkhandelwal810-zerith-signaling.hf.space";
     const url = `${signalingUrl}?room=${encodeURIComponent(roomId)}&peer=${this.localPeerId}`;
 
     return new Promise((resolve, reject) => {

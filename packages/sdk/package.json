@@ -1,5 +1,5 @@
 {
-  "name": "@zerithdb/sdk",
+  "name": "zerithdb-sdk",
   "version": "0.1.0",
   "description": "ZerithDB SDK — build full-stack apps with zero backend",
   "keywords": [
@@ -39,15 +39,15 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@zerithdb/auth": "workspace:*",
-    "@zerithdb/core": "workspace:*",
-    "@zerithdb/db": "workspace:*",
-    "@zerithdb/network": "workspace:*",
-    "@zerithdb/sync": "workspace:*"
+    "zerithdb-auth": "workspace:*",
+    "zerithdb-core": "workspace:*",
+    "zerithdb-db": "workspace:*",
+    "zerithdb-network": "workspace:*",
+    "zerithdb-sync": "workspace:*"
   },
   "devDependencies": {
-    "@zerithdb/eslint-config": "workspace:*",
-    "@zerithdb/tsconfig": "workspace:*",
+    "zerithdb-eslint-config": "workspace:*",
+    "zerithdb-tsconfig": "workspace:*",
     "fake-indexeddb": "^6.0.0",
     "rimraf": "^6.0.1",
     "tsup": "^8.2.4",

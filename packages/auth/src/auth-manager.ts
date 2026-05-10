@@ -1,7 +1,7 @@
 import * as ed from "@noble/ed25519";
 import { sha512 } from "@noble/hashes/sha2.js";
-import type { ZerithDBConfig, Identity, Signature } from "@zerithdb/core";
-import { ZerithDBError, ErrorCode } from "@zerithdb/core";
+import type { ZerithDBConfig, Identity, Signature } from "zerithdb-core";
+import { ZerithDBError, ErrorCode } from "zerithdb-core";
 
 // noble/ed25519 requires a sha512 implementation
 ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m));

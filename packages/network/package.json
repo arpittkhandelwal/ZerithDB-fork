@@ -1,5 +1,5 @@
 {
-  "name": "@zerithdb/network",
+  "name": "zerithdb-network",
   "version": "0.1.0",
   "description": "WebRTC peer-to-peer network layer for ZerithDB",
   "license": "Apache-2.0",
@@ -23,13 +23,13 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@zerithdb/auth": "workspace:*",
-    "@zerithdb/core": "workspace:*",
+    "zerithdb-auth": "workspace:*",
+    "zerithdb-core": "workspace:*",
     "simple-peer": "^9.11.1"
   },
   "devDependencies": {
-    "@zerithdb/eslint-config": "workspace:*",
-    "@zerithdb/tsconfig": "workspace:*",
+    "zerithdb-eslint-config": "workspace:*",
+    "zerithdb-tsconfig": "workspace:*",
     "@types/simple-peer": "^9.11.8",
     "rimraf": "^6.0.1",
     "tsup": "^8.2.4",

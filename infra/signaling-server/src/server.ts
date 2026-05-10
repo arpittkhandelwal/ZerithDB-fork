@@ -22,11 +22,13 @@ const server = createServer((_req, res) => {
 const wss = new WebSocketServer({ server });
 
 wss.on("connection", (ws, req) => {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
+  // Use a dummy base for parsing relative URLs
+  const url = new URL(req.url ?? "/", "http://localhost");
   const roomId = url.searchParams.get("room");
   const peerId = url.searchParams.get("peer");
 
-  if (roomId === null || peerId === null) {
+  if (!roomId || !peerId) {
+    console.log(`[!] Rejected connection from ${req.socket.remoteAddress}: missing params`);
     ws.close(1008, "Missing room or peer query parameters");
     return;
   }

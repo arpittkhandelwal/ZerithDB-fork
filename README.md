@@ -39,7 +39,7 @@ your users' browsers form a resilient, encrypted mesh network.
 ## The 30-Second Demo
 
 ```typescript
-import { createApp } from "@zerithdb/sdk";
+import { createApp } from "zerithdb-sdk";
 
 const app = createApp({ appId: "my-todo-app" });
 
@@ -87,15 +87,15 @@ npm run dev
 ### Option 2: Manual Install
 
 ```bash
-pnpm add @zerithdb/sdk
+pnpm add zerithdb-sdk
 # or
-npm install @zerithdb/sdk
+npm install zerithdb-sdk
 ```
 
 ### Minimal Setup
 
 ```typescript
-import { createApp } from "@zerithdb/sdk";
+import { createApp } from "zerithdb-sdk";
 
 const app = createApp({
   appId: "my-app-unique-id", // namespaces your local DB
@@ -142,13 +142,13 @@ that, peers communicate directly.
 
 | Package                                 | Version                                                | Description                       |
 | --------------------------------------- | ------------------------------------------------------ | --------------------------------- |
-| [`@zerithdb/sdk`](packages/sdk)         | ![npm](https://img.shields.io/npm/v/@zerithdb/sdk)     | Main developer-facing API         |
-| [`@zerithdb/db`](packages/db)           | ![npm](https://img.shields.io/npm/v/@zerithdb/db)      | IndexedDB adapter (Dexie wrapper) |
-| [`@zerithdb/sync`](packages/sync)       | ![npm](https://img.shields.io/npm/v/@zerithdb/sync)    | CRDT sync engine (Yjs)            |
-| [`@zerithdb/network`](packages/network) | ![npm](https://img.shields.io/npm/v/@zerithdb/network) | WebRTC P2P layer                  |
-| [`@zerithdb/auth`](packages/auth)       | ![npm](https://img.shields.io/npm/v/@zerithdb/auth)    | Keypair identity management       |
-| [`@zerithdb/core`](packages/core)       | ![npm](https://img.shields.io/npm/v/@zerithdb/core)    | Internal types, events, utilities |
-| [`@zerithdb/cli`](packages/cli)         | ![npm](https://img.shields.io/npm/v/@zerithdb/cli)     | `npx zerithdb init` CLI tool      |
+| [`zerithdb-sdk`](packages/sdk)         | ![npm](https://img.shields.io/npm/v/zerithdb-sdk)     | Main developer-facing API         |
+| [`zerithdb-db`](packages/db)           | ![npm](https://img.shields.io/npm/v/zerithdb-db)      | IndexedDB adapter (Dexie wrapper) |
+| [`zerithdb-sync`](packages/sync)       | ![npm](https://img.shields.io/npm/v/zerithdb-sync)    | CRDT sync engine (Yjs)            |
+| [`zerithdb-network`](packages/network) | ![npm](https://img.shields.io/npm/v/zerithdb-network) | WebRTC P2P layer                  |
+| [`zerithdb-auth`](packages/auth)       | ![npm](https://img.shields.io/npm/v/zerithdb-auth)    | Keypair identity management       |
+| [`zerithdb-core`](packages/core)       | ![npm](https://img.shields.io/npm/v/zerithdb-core)    | Internal types, events, utilities |
+| [`zerithdb-cli`](packages/cli)         | ![npm](https://img.shields.io/npm/v/zerithdb-cli)     | `npx zerithdb init` CLI tool      |
 
 ---
 

@@ -1,1 +1,1 @@
-export { AuthManager } from "@zerithdb/auth";
+export { AuthManager } from "zerithdb-auth";

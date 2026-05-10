@@ -6,8 +6,8 @@ import type {
   QueryFilter,
   InsertResult,
   UpdateSpec,
-} from "@zerithdb/core";
-import { ZerithDBError, ErrorCode } from "@zerithdb/core";
+} from "zerithdb-core";
+import { ZerithDBError, ErrorCode } from "zerithdb-core";
 
 /**
  * A handle to a single named collection within the ZerithDB local database.

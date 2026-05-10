@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// @zerithdb/core — Public API
+// zerithdb-core — Public API
 // ─────────────────────────────────────────────────────────────────────────────
 
 export { EventEmitter } from "./internal/event-emitter.js";

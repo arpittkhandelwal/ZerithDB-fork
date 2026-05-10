@@ -1,5 +1,5 @@
 {
-  "name": "@zerithdb/core",
+  "name": "zerithdb-core",
   "version": "0.1.0",
   "description": "Shared types, events, and error primitives for ZerithDB",
   "license": "Apache-2.0",
@@ -24,8 +24,8 @@
     "clean": "rimraf dist"
   },
   "devDependencies": {
-    "@zerithdb/eslint-config": "workspace:*",
-    "@zerithdb/tsconfig": "workspace:*",
+    "zerithdb-eslint-config": "workspace:*",
+    "zerithdb-tsconfig": "workspace:*",
     "rimraf": "^6.0.1",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",

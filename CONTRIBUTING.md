@@ -47,9 +47,9 @@ pnpm dev           # start all packages in watch mode
 ### Working on a Single Package
 
 ```bash
-pnpm --filter @zerithdb/db dev
-pnpm --filter @zerithdb/sync test
-pnpm --filter @zerithdb/todo-app dev
+pnpm --filter zerithdb-db dev
+pnpm --filter zerithdb-sync test
+pnpm --filter zerithdb-todo-app dev
 ```
 
 ---
@@ -102,7 +102,7 @@ git commit -m "fix(sync): resolve race condition in CRDT merge"
 ### Error Handling
 
 ```typescript
-import { ZerithDBError, ErrorCode } from "@zerithdb/core";
+import { ZerithDBError, ErrorCode } from "zerithdb-core";
 throw new ZerithDBError(ErrorCode.DB_WRITE_FAILED, `Failed to write to "${collection}"`, {
   cause: err,
 });
@@ -127,7 +127,7 @@ and is never exported.
 pnpm test                    # all tests
 pnpm test --coverage         # with coverage
 pnpm test:e2e                # Playwright
-pnpm --filter @zerithdb/db test --watch
+pnpm --filter zerithdb-db test --watch
 ```
 
 **Rules:**
@@ -145,7 +145,7 @@ pnpm --filter @zerithdb/db test --watch
 | `good-first-issue` | Welcoming to newcomers — scoped and well-defined |
 | `help-wanted`      | Core team needs community bandwidth              |
 | `high-impact`      | Critical path for v1.0                           |
-| `core`             | Changes to architecture or `@zerithdb/core`      |
+| `core`             | Changes to architecture or `zerithdb-core`      |
 | `bug`              | Confirmed bug with reproduction steps            |
 | `enhancement`      | New feature or improvement                       |
 | `docs`             | Documentation only                               |

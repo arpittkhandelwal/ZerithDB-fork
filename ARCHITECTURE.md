@@ -31,7 +31,7 @@ compromised, user data remains private.
 ### 4. Package Independence
 
 Each package in `packages/` can be used standalone without the SDK wrapper. A developer who only
-needs the DB engine can `import { createDb } from "@zerithdb/db"` without pulling in sync or
+needs the DB engine can `import { createDb } from "zerithdb-db"` without pulling in sync or
 networking.
 
 ---
@@ -41,7 +41,7 @@ networking.
 ```
                             ┌─────────────────────────────────────────┐
                             │              ZerithDB SDK                │
-                            │          (@zerithdb/sdk)                 │
+                            │          (zerithdb-sdk)                 │
                             │                                          │
                             │  createApp() → ZerithDBApp               │
                             │    .db()      → DbClient                 │
@@ -53,7 +53,7 @@ networking.
               ┌────────────────────┼────────────────────────┐
               ▼                    ▼                         ▼
    ┌──────────────────┐  ┌─────────────────┐  ┌─────────────────────┐
-   │  @zerithdb/db    │  │ @zerithdb/sync  │  │ @zerithdb/auth      │
+   │  zerithdb-db    │  │ zerithdb-sync  │  │ zerithdb-auth      │
    │                  │  │                 │  │                     │
    │  Dexie wrapper   │  │  Yjs Doc tree   │  │  Ed25519 keypairs   │
    │  IndexedDB       │  │  Awareness      │  │  DID:key identity   │
@@ -61,7 +61,7 @@ networking.
    └──────────────────┘  └────────┬────────┘  └─────────────────────┘
                                   │ emits/receives updates
                          ┌────────▼────────┐
-                         │ @zerithdb/      │
+                         │ zerithdb-      │
                          │ network         │
                          │                 │
                          │  WebRTC peers   │
@@ -83,7 +83,7 @@ networking.
 
 ## Module Reference
 
-### `@zerithdb/core`
+### `zerithdb-core`
 
 **Role:** The foundation. Shared types, error classes, event bus, and constants used by all other
 packages.
@@ -99,7 +99,7 @@ packages.
 
 ---
 
-### `@zerithdb/db`
+### `zerithdb-db`
 
 **Role:** Local database engine. Wraps [Dexie.js](https://dexie.org/) (an IndexedDB wrapper) with a
 MongoDB-style query API.
@@ -129,7 +129,7 @@ DbClient
 
 ---
 
-### `@zerithdb/sync`
+### `zerithdb-sync`
 
 **Role:** CRDT-based sync engine. Manages [Yjs](https://yjs.dev/) documents and propagates updates
 to/from the network layer.
@@ -142,7 +142,7 @@ to/from the network layer.
   document.
 - **Awareness** — Ephemeral user presence (cursor position, online status) via Yjs Awareness
   protocol — never persisted.
-- **Persistence** — On sync, the Yjs state vector is checkpointed to IndexedDB (via `@zerithdb/db`).
+- **Persistence** — On sync, the Yjs state vector is checkpointed to IndexedDB (via `zerithdb-db`).
 
 **Sync flow:**
 
@@ -161,7 +161,7 @@ by Yjs using a deterministic timestamp + client ID tie-break. No user interventi
 
 ---
 
-### `@zerithdb/network`
+### `zerithdb-network`
 
 **Role:** WebRTC peer-to-peer communication layer.
 
@@ -181,7 +181,7 @@ by Yjs using a deterministic timestamp + client ID tie-break. No user interventi
 
 ---
 
-### `@zerithdb/auth`
+### `zerithdb-auth`
 
 **Role:** Cryptographic identity management. No passwords, no auth servers.
 
@@ -205,7 +205,7 @@ by Yjs using a deterministic timestamp + client ID tie-break. No user interventi
 
 ---
 
-### `@zerithdb/sdk`
+### `zerithdb-sdk`
 
 **Role:** The primary developer-facing API. A thin orchestration layer over `db`, `sync`, `network`,
 and `auth`.
@@ -214,18 +214,18 @@ and `auth`.
 
 ```typescript
 const app = createApp(config);
-// app.db(name)     → DbClient (from @zerithdb/db)
-// app.sync         → SyncEngine (from @zerithdb/sync)
-// app.auth         → AuthManager (from @zerithdb/auth)
-// app.network      → NetworkManager (from @zerithdb/network)
+// app.db(name)     → DbClient (from zerithdb-db)
+// app.sync         → SyncEngine (from zerithdb-sync)
+// app.auth         → AuthManager (from zerithdb-auth)
+// app.network      → NetworkManager (from zerithdb-network)
 ```
 
-**Design goal:** A developer should not need to import from `@zerithdb/db`, `@zerithdb/sync`, etc.
+**Design goal:** A developer should not need to import from `zerithdb-db`, `zerithdb-sync`, etc.
 directly for 95% of use cases.
 
 ---
 
-### `@zerithdb/cli`
+### `zerithdb-cli`
 
 **Role:** `npx zerithdb` command-line tool. Bootstraps apps, manages local development, and provides
 dev utilities.
@@ -265,23 +265,23 @@ Cloudflare Worker or any WebSocket server.
 ```
 1. Developer calls: await app.db("todos").insert({ text: "Buy milk" })
 
-2. @zerithdb/db
+2. zerithdb-db
    └─ Generates _id (UUID v7)
    └─ Writes to IndexedDB via Dexie
    └─ Emits "document:inserted" event to Core EventBus
 
-3. @zerithdb/sync (listening to EventBus)
+3. zerithdb-sync (listening to EventBus)
    └─ Applies insert to Y.Doc as Y.Map entry
    └─ Yjs produces binary delta (state update)
-   └─ Emits delta to @zerithdb/network
+   └─ Emits delta to zerithdb-network
 
-4. @zerithdb/auth
+4. zerithdb-auth
    └─ Signs the delta with the local private key
 
-5. @zerithdb/network
+5. zerithdb-network
    └─ Sends signed delta to all connected WebRTC peers
    └─ Peers verify signature, apply update to their Y.Doc
-   └─ Peers' @zerithdb/db reflects the merged state
+   └─ Peers' zerithdb-db reflects the merged state
 
 6. Live queries on all peers automatically re-emit
 ```

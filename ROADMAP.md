@@ -24,13 +24,13 @@ The goal of this phase is to establish a working, testable monorepo with core fu
 | Item                                        | Status | Notes                             |
 | ------------------------------------------- | ------ | --------------------------------- |
 | Monorepo setup (Turborepo + pnpm)           | ✅     |                                   |
-| `@zerithdb/core` — types, events, errors    | ✅     |                                   |
-| `@zerithdb/db` — IndexedDB via Dexie        | 🚧     | Basic CRUD done, live queries WIP |
-| `@zerithdb/sync` — Yjs integration          | 🚧     | Local sync working, network WIP   |
-| `@zerithdb/network` — WebRTC + signaling    | 🚧     | 2-peer tested, mesh topology WIP  |
-| `@zerithdb/auth` — Ed25519 keypair identity | 📋     |                                   |
-| `@zerithdb/sdk` — createApp() API           | 🚧     | Basic composition working         |
-| `@zerithdb/cli` — `zerithdb init`           | 📋     |                                   |
+| `zerithdb-core` — types, events, errors    | ✅     |                                   |
+| `zerithdb-db` — IndexedDB via Dexie        | 🚧     | Basic CRUD done, live queries WIP |
+| `zerithdb-sync` — Yjs integration          | 🚧     | Local sync working, network WIP   |
+| `zerithdb-network` — WebRTC + signaling    | 🚧     | 2-peer tested, mesh topology WIP  |
+| `zerithdb-auth` — Ed25519 keypair identity | 📋     |                                   |
+| `zerithdb-sdk` — createApp() API           | 🚧     | Basic composition working         |
+| `zerithdb-cli` — `zerithdb init`           | 📋     |                                   |
 | Signaling server                            | ✅     | Basic WebSocket relay             |
 | Unit tests (>60% coverage)                  | 🚧     |                                   |
 | CI pipeline                                 | ✅     | GitHub Actions                    |
@@ -46,8 +46,8 @@ Focus: Make it delightful to build with. Remove all friction.
 
 | Item                                                | Status | Notes                               |
 | --------------------------------------------------- | ------ | ----------------------------------- |
-| React hooks (`useQuery`, `useLiveQuery`, `useAuth`) | 📋     | Separate `@zerithdb/react` package  |
-| Vue composables (`useQuery`, `usePeer`)             | 📋     | Separate `@zerithdb/vue` package    |
+| React hooks (`useQuery`, `useLiveQuery`, `useAuth`) | 📋     | Separate `zerithdb-react` package  |
+| Vue composables (`useQuery`, `usePeer`)             | 📋     | Separate `zerithdb-vue` package    |
 | `zerithdb signal` dev server command                | 📋     |                                     |
 | `zerithdb types` code generation                    | 📋     | TypeScript types from schema        |
 | Schema validation (Zod integration)                 | 📋     | Optional, opt-in                    |
@@ -76,7 +76,7 @@ Focus: Production-grade reliability. Handle edge cases. Handle scale.
 | Multi-tab coordination          | 📋     | BroadcastChannel for same-origin tabs       |
 | E2E test coverage (Playwright)  | 📋     | Full user flow tests                        |
 | Performance benchmarks          | 📋     | Automated regression detection              |
-| `@zerithdb/svelte` adapter      | 📋     | Svelte stores                               |
+| `zerithdb-svelte` adapter      | 📋     | Svelte stores                               |
 | Server-assisted sync (optional) | 📋     | For datasets too large for P2P              |
 
 **Target:** Q1 2027
@@ -108,7 +108,7 @@ Focus: Stable API, plugin ecosystem, community launch.
 | --------------------------------------- | ------ | ----------------------------------- |
 | Stable public API (no breaking changes) | 📋     | SemVer 1.x guarantee                |
 | Plugin system                           | 📋     | Extend db, sync, network layers     |
-| `@zerithdb/storage` — File/blob support | 📋     | P2P file transfer via data channels |
+| `zerithdb-storage` — File/blob support | 📋     | P2P file transfer via data channels |
 | Hardware key support (WebAuthn)         | 📋     | FIDO2 for key storage               |
 | Key rotation                            | 📋     | Migrate documents to a new identity |
 | Migration tooling                       | 📋     | CLI for schema migrations           |

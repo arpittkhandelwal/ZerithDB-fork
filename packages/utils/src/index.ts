@@ -1,6 +1,6 @@
 /**
- * @zerithdb/utils — Internal shared utilities
- * Not for public consumption. Not exported from @zerithdb/sdk.
+ * zerithdb-utils — Internal shared utilities
+ * Not for public consumption. Not exported from zerithdb-sdk.
  */
 
 // ─── Type guards ──────────────────────────────────────────────────────────────

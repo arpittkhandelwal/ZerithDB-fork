@@ -1,9 +1,9 @@
 import * as Y from "yjs";
 import { IndexeddbPersistence } from "y-indexeddb";
-import type { ZerithDBConfig, SyncState } from "@zerithdb/core";
-import { EventEmitter } from "@zerithdb/core";
-import type { DbClient } from "@zerithdb/db";
-import type { NetworkManager } from "@zerithdb/network";
+import type { ZerithDBConfig, SyncState } from "zerithdb-core";
+import { EventEmitter } from "zerithdb-core";
+import type { DbClient } from "zerithdb-db";
+import type { NetworkManager } from "zerithdb-network";
 
 type SyncEvents = {
   "state:change": SyncState;

@@ -6,5 +6,14 @@ coverage
 playwright-report
 *.local
 .env
+.env.local
+.env.*.local
 .DS_Store
 *.tsbuildinfo
+*.log
+pnpm-debug.log*
+.vercel
+out
+build
+my-test-app/
+test-agent/
