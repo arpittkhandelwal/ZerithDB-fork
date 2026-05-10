@@ -10,7 +10,6 @@
   "scripts": {
     "build": "tsup src/cli.ts --format esm",
     "dev": "tsup src/cli.ts --format esm --watch",
-    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts",
     "clean": "rimraf dist"
@@ -26,6 +25,9 @@
   "devDependencies": {
     "zerithdb-eslint-config": "workspace:*",
     "zerithdb-tsconfig": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
     "@types/prompts": "^2.4.9",
     "rimraf": "^6.0.1",
     "tsup": "^8.2.4",
