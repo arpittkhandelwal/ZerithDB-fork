@@ -1,10 +1,10 @@
 import asyncio
 import json
 import logging
-from typing import Dict, Optional, Callable, Awaitable, Any
+from typing import Dict, Optional, Callable, Awaitable
 
 import websockets
-from aiortc import RTCPeerConnection, RTCSessionDescription, RTCDataChannel, RTCIceCandidate
+from aiortc import RTCPeerConnection, RTCSessionDescription, RTCDataChannel
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +61,6 @@ class NetworkManager:
                 
         elif msg_type == "ice-candidate":
             remote_peer_id = msg.get("from")
-            candidate = msg.get("payload")
             pc = self.peers.get(remote_peer_id)
             if pc:
                 # aiortc handles ICE candidates slightly differently, 
