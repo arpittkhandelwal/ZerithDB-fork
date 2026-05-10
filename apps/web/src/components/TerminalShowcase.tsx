@@ -16,8 +16,8 @@ export default function TerminalShowcase() {
   const [lines, setLines] = useState<number>(0);
 
   useEffect(() => {
-    let timeouts: NodeJS.Timeout[] = [];
-    
+    const timeouts: NodeJS.Timeout[] = [];
+
     COMMANDS.forEach((cmd, i) => {
       const t = setTimeout(() => {
         setLines(i + 1);

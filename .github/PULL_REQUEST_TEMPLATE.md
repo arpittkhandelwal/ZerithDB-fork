@@ -1,50 +1,29 @@
----
+## Description
 
-## Pull Request
+<!-- Please describe your changes and the problem you are solving. -->
 
-### What does this PR do?
+Fixes # (issue number if applicable)
 
-<!-- A brief, clear description of the change -->
+## Type of change
 
-### Motivation / Related Issue
+- [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
+- [ ] ✨ New feature (non-breaking change which adds functionality)
+- [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as
+      expected)
+- [ ] 📚 Documentation update
+- [ ] 🚀 Performance improvement
 
-<!-- Why is this change needed? Link the issue: Closes #NNN -->
+## Checklist
 
-Closes #
+- [ ] My code follows the style guidelines of this project (`pnpm format:check`, `pnpm lint`)
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
+- [ ] My changes generate no new warnings
+- [ ] I have added tests that prove my fix is effective or that my feature works (`pnpm test`)
+- [ ] New and existing unit tests pass locally with my changes
+- [ ] I have run `pnpm changeset` if my change affects published packages
 
-### Type of Change
+## Additional Context
 
-- [ ] 🐛 Bug fix
-- [ ] ✨ New feature
-- [ ] 🔧 Refactor (no behavior change)
-- [ ] 📚 Documentation
-- [ ] 🧪 Tests
-- [ ] 🔨 Chore / maintenance
-
-### How Has This Been Tested?
-
-<!-- Describe what tests you added/ran -->
-
-- [ ] Unit tests added/updated
-- [ ] Integration tests added/updated
-- [ ] Manually tested in browser
-
-### Checklist
-
-- [ ] `pnpm test` passes
-- [ ] `pnpm typecheck` passes with zero errors
-- [ ] `pnpm lint` passes
-- [ ] `pnpm format:check` passes
-- [ ] All new public APIs have TSDoc comments
-- [ ] Changeset added (`pnpm changeset`) if a published package changed
-- [ ] No `any`, no `ts-ignore` without a linked issue
-
-### Screenshots / Recordings (for UI changes)
-
-<!-- Drop screenshots or a Loom here -->
-
-### Breaking Changes
-
-- [ ] This PR introduces a breaking change
-
-<!-- If yes, describe what breaks and the migration path -->
+<!-- Add any other context or screenshots about the pull request here. -->

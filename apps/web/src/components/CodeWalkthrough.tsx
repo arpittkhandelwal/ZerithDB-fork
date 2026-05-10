@@ -63,7 +63,7 @@ export default function CodeWalkthrough() {
           const tab = CODE_SNIPPETS[key];
           const Icon = tab.icon;
           const isActive = activeTab === key;
-          
+
           return (
             <button
               key={key}
@@ -84,15 +84,17 @@ export default function CodeWalkthrough() {
       {/* Code Area */}
       <div className="flex-1 p-6 relative min-h-[300px]">
         <div className="absolute top-4 right-4 flex gap-2">
-           <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-           <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-           <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+          <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+          <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
         </div>
         <pre className="text-sm font-mono text-gray-300 leading-relaxed mt-4 overflow-x-auto">
           <code>
             {CODE_SNIPPETS[activeTab].code.split("\\n").map((line, i) => (
               <div key={i} className="table-row">
-                <span className="table-cell select-none text-gray-600 pr-4 text-right">{i + 1}</span>
+                <span className="table-cell select-none text-gray-600 pr-4 text-right">
+                  {i + 1}
+                </span>
                 <span className="table-cell">{line}</span>
               </div>
             ))}

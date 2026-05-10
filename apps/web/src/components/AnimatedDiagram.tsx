@@ -1,6 +1,6 @@
 "use client";
 
-import { Database, Network, Laptop, RefreshCcw } from "lucide-react";
+import { Database, Laptop, RefreshCcw } from "lucide-react";
 
 export default function AnimatedDiagram() {
   return (
@@ -21,24 +21,33 @@ export default function AnimatedDiagram() {
       <div className="flex-1 flex flex-col items-center relative min-h-[160px] justify-center w-full">
         {/* Animated Line */}
         <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 -translate-y-1/2 overflow-hidden">
-          <div className="h-full w-1/3 bg-blue-500 animate-[translate_2s_linear_infinite]" style={{ animationName: "slide" }}></div>
+          <div
+            className="h-full w-1/3 bg-blue-500 animate-[translate_2s_linear_infinite]"
+            style={{ animationName: "slide" }}
+          ></div>
         </div>
-        
+
         <div className="bg-white p-4 rounded-full shadow-lg border border-gray-200 z-10 flex flex-col items-center justify-center">
           <RefreshCcw className="w-8 h-8 text-blue-600 mb-2 animate-[spin_4s_linear_infinite]" />
-          <span className="text-xs font-bold text-gray-900 px-2 py-1 bg-gray-100 rounded-md">CRDT Merge</span>
+          <span className="text-xs font-bold text-gray-900 px-2 py-1 bg-gray-100 rounded-md">
+            CRDT Merge
+          </span>
         </div>
         <p className="text-sm font-medium text-blue-600 mt-4 bg-white px-3 py-1 rounded-full border border-blue-100 shadow-sm">
           WebRTC Data Channel
         </p>
 
         {/* Global animation styles injected here since arbitrary values in tailwind can be tricky for keyframes */}
-        <style dangerouslySetInnerHTML={{__html: `
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
           @keyframes slide {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(300%); }
           }
-        `}} />
+        `,
+          }}
+        />
       </div>
 
       {/* Client 2 */}

@@ -145,7 +145,7 @@ pnpm --filter zerithdb-db test --watch
 | `good-first-issue` | Welcoming to newcomers — scoped and well-defined |
 | `help-wanted`      | Core team needs community bandwidth              |
 | `high-impact`      | Critical path for v1.0                           |
-| `core`             | Changes to architecture or `zerithdb-core`      |
+| `core`             | Changes to architecture or `zerithdb-core`       |
 | `bug`              | Confirmed bug with reproduction steps            |
 | `enhancement`      | New feature or improvement                       |
 | `docs`             | Documentation only                               |

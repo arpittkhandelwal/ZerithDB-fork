@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
-import { createApp } from 'zerithdb-sdk';
-import type { ZerithDBConfig } from 'zerithdb-sdk';
+import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { createApp } from "zerithdb-sdk";
+import type { ZerithDBConfig } from "zerithdb-sdk";
 
 const ZerithContext = createContext<any>(null);
 
@@ -10,17 +10,13 @@ export interface ZerithProviderProps {
 }
 
 /**
- * Global provider for ZerithDB. 
+ * Global provider for ZerithDB.
  * Initializes the P2P client and makes it available via hooks.
  */
 export const ZerithProvider: React.FC<ZerithProviderProps> = ({ config, children }) => {
   const client = useMemo(() => createApp(config), [JSON.stringify(config)]);
 
-  return (
-    <ZerithContext.Provider value={client}>
-      {children}
-    </ZerithContext.Provider>
-  );
+  return <ZerithContext.Provider value={client}>{children}</ZerithContext.Provider>;
 };
 
 /**
@@ -29,7 +25,7 @@ export const ZerithProvider: React.FC<ZerithProviderProps> = ({ config, children
 export const useZerith = () => {
   const context = useContext(ZerithContext);
   if (!context) {
-    throw new Error('useZerith must be used within a ZerithProvider');
+    throw new Error("useZerith must be used within a ZerithProvider");
   }
   return context;
 };
@@ -48,7 +44,7 @@ export function useQuery<T = any>(collectionName: string) {
     let mounted = true;
 
     const collection = db.collection(collectionName);
-    
+
     // Subscribe to real-time updates (CRDT merges)
     const unsubscribe = collection.subscribe((docs: any[]) => {
       if (mounted) {

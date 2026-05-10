@@ -4,49 +4,78 @@ on:
   push:
     branches: [main]
 
-concurrency:
-  group: release
-  cancel-in-progress: false
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
-    name: Publish to npm
+  # ── npm / Changesets release ──────────────────────────────────────────────
+  release-npm:
+    name: Release (npm via Changesets)
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      contents: write        # create tags & release commits
+      pull-requests: write   # open "Version Packages" PR
+      id-token: write        # provenance for npm publish
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0     # full history so changeset can diff tags
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          run_install: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-          registry-url: "https://registry.npmjs.org"
+          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build all packages
-        run: pnpm build
+      - name: Build all publishable packages
+        run: pnpm turbo build --filter=!./apps/*
 
-      - name: Create Release PR or Publish
-        uses: changesets/action@v1
+      # Creates a "Version Packages" PR if changesets exist,
+      # OR publishes to npm if that PR was just merged.
+      - uses: changesets/action@v1
         with:
           publish: pnpm release
-          title: "chore: release packages"
-          commit: "chore: release packages"
+          title: "chore: version packages"
+          commit: "chore: version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # ── PyPI release ──────────────────────────────────────────────────────────
+  release-pypi:
+    name: Release (PyPI)
+    runs-on: ubuntu-latest
+    needs: release-npm          # only publish Python after npm tags are cut
+    # Only run when Changesets actually published (no "nothing to publish" skip)
+    if: needs.release-npm.outputs.published == 'true'
+    permissions:
+      id-token: write           # OIDC trusted publishing — no PyPI token needed
+    environment:
+      name: pypi
+      url: https://pypi.org/p/zerithdb
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tool
+        run: pip install build
+
+      - name: Build sdist + wheel
+        working-directory: packages/zerithdb-python
+        run: python -m build
+
+      - name: Publish to PyPI (trusted publishing)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: packages/zerithdb-python/dist/
