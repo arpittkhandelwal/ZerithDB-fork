@@ -1,6 +1,6 @@
 "use client";
 
-import { Database, Network, Laptop, RefreshCcw } from "lucide-react";
+import { Database, Laptop, RefreshCcw } from "lucide-react";
 
 export default function AnimatedDiagram() {
   return (

@@ -230,7 +230,7 @@ export default function LandingPage() {
             className="mb-16 md:text-center max-w-3xl mx-auto"
           >
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-              Everything you need. Nothing you don't.
+              Everything you need. Nothing you don&apos;t.
             </h2>
             <p className="mt-4 text-lg text-gray-500">
               Stop managing infrastructure. ZerithDB provides the entire data layer right inside the client.

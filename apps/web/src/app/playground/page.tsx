@@ -14,8 +14,8 @@ export default function PlaygroundPage() {
   const [isOnline, setIsOnline] = useState(true);
   
   // Simulated local state for Client A and Client B
-  const [clientA, setClientA] = useState<Note[]>([{ id: "1", text: "Hello from Client A!", timestamp: Date.now() }]);
-  const [clientB, setClientB] = useState<Note[]>([{ id: "1", text: "Hello from Client A!", timestamp: Date.now() }]);
+  const [clientA, setClientA] = useState<Note[]>(() => [{ id: "1", text: "Hello from Client A!", timestamp: Date.now() }]);
+  const [clientB, setClientB] = useState<Note[]>(() => [{ id: "1", text: "Hello from Client A!", timestamp: Date.now() }]);
   
   const [inputA, setInputA] = useState("");
   const [inputB, setInputB] = useState("");
@@ -38,7 +38,9 @@ export default function PlaygroundPage() {
       }, [] as Note[]);
 
       // Only update if there's an actual difference to prevent infinite loops
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (JSON.stringify(merged) !== JSON.stringify(clientA)) setClientA(merged);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (JSON.stringify(merged) !== JSON.stringify(clientB)) setClientB(merged);
       
       if (clientA.length > 0 || clientB.length > 0) {
@@ -193,7 +195,7 @@ export default function PlaygroundPage() {
         <ul className="text-sm text-gray-500 flex flex-col gap-2">
           <li>1. Type a message in Browser A and click Save. See it instantly sync to Browser B.</li>
           <li>2. Click the <strong className="text-red-600">Network: Online</strong> button to simulate going offline.</li>
-          <li>3. Create different notes in Browser A and Browser B. Notice they don't sync.</li>
+          <li>3. Create different notes in Browser A and Browser B. Notice they don&apos;t sync.</li>
           <li>4. Click <strong className="text-green-600">Network: Offline</strong> to reconnect. Watch the CRDT engine automatically merge the states perfectly!</li>
         </ul>
       </div>
