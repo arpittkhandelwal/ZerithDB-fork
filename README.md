@@ -9,10 +9,10 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![CI](https://github.com/zerithdb/zerithdb/actions/workflows/ci.yml/badge.svg)](https://github.com/zerithdb/zerithdb/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/@zerithdb%2Fsdk.svg)](https://badge.fury.io/js/@zerithdb%2Fsdk)
-[![Discord](https://img.shields.io/discord/0000000000?label=Discord&logo=discord)](https://discord.gg/zerithdb)
+[![Discord](https://img.shields.io/discord/0000000000?label=Discord&logo=discord)](https://discord.gg/MhvuDvzWfF)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[**Documentation**](https://zerithdb.dev/docs) · [**Live Playground**](https://playground.zerithdb.dev) · [**Discord**](https://discord.gg/zerithdb) · [**Roadmap**](ROADMAP.md)
+[**Documentation**](https://zerithdb.dev/docs) · [**Live Playground**](https://playground.zerithdb.dev) · [**Discord**](https://discord.gg/MhvuDvzWfF) · [**Roadmap**](ROADMAP.md)
 
 </div>
 
@@ -210,10 +210,7 @@ Good places to start:
 
 | | |
 |---|---|
-| 💬 **Discord** | [discord.gg/zerithdb](https://discord.gg/zerithdb) |
-| 🐦 **Twitter** | [@zerithdbdev](https://twitter.com/zerithdbdev) |
-| 📧 **Email** | hello@zerithdb.dev |
-| 📣 **Announcements** | [GitHub Discussions](https://github.com/zerithdb/zerithdb/discussions) |
+| 💬 **Discord** | [discord.gg/MhvuDvzWfF](https://discord.gg/MhvuDvzWfF) |
 
 ---
 

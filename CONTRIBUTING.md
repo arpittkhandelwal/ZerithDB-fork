@@ -180,7 +180,7 @@ Maintainers handle the actual npm publish via the automated Release PR workflow.
 |---|---|
 | [GitHub Issues](https://github.com/zerithdb/zerithdb/issues) | Bug reports, feature requests |
 | [GitHub Discussions](https://github.com/zerithdb/zerithdb/discussions) | Ideas, questions |
-| [Discord `#contributors`](https://discord.gg/zerithdb) | Real-time help |
+| [Discord `#contributors`](https://discord.gg/MhvuDvzWfF) | Real-time help |
 
 ---
 

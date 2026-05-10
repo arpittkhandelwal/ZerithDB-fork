@@ -87,7 +87,7 @@ ${chalk.green("✔")} ${chalk.bold("Your ZerithDB app is ready!")}
   ${chalk.cyan("npm run dev")}
 
 ${chalk.gray("Docs:")} https://zerithdb.dev/docs
-${chalk.gray("Discord:")} https://discord.gg/zerithdb
+${chalk.gray("Discord:")} https://discord.gg/MhvuDvzWfF
 `);
 }
 
