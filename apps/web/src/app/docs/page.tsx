@@ -130,7 +130,7 @@ const DOC_CONTENT: Record<string, React.ReactNode> = {
     <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
       <p>At the heart of ZerithDB is a Conflict-free Replicated Data Type (CRDT) engine. CRDTs are data structures that can be replicated across multiple computers in a network, updated independently, and mathematically guaranteed to converge to the same state.</p>
       <div className="p-6 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 mt-8">
-        <strong>How it works:</strong> Instead of storing absolute values (e.g., "count is 5"), ZerithDB stores causal operations (e.g., "add 1 to count"). By securely distributing these operations using vector clocks, all peers arrive at the same outcome without central locking.
+        <strong>How it works:</strong> Instead of storing absolute values (e.g., &quot;count is 5&quot;), ZerithDB stores causal operations (e.g., &quot;add 1 to count&quot;). By securely distributing these operations using vector clocks, all peers arrive at the same outcome without central locking.
       </div>
       <p className="mt-8">We use an optimized implementation of Yjs/Automerge-like algorithms customized for fast IndexedDB querying.</p>
     </div>
@@ -255,9 +255,9 @@ export default function DocsPage() {
             <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
               <Zap className="w-32 h-32" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">You're ready to build!</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">You&apos;re ready to build!</h3>
             <p className="text-gray-600 mb-6 max-w-xl">
-              You've successfully set up the foundation for a zero-backend application. Explore the advanced topics to unlock the full power of ZerithDB.
+              You&apos;ve successfully set up the foundation for a zero-backend application. Explore the advanced topics to unlock the full power of ZerithDB.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               <Link href="/playground" className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group">
