@@ -30,7 +30,7 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/arpittkhandelwal/ZerithDB"
+"Homepage" = "https://github.com/Zerith-Labs/ZerithDB"
 
 [tool.ruff]
 line-length = 88

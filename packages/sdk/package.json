@@ -14,7 +14,7 @@
   "homepage": "https://zerithdb.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zerithdb/zerithdb.git",
+    "url": "https://github.com/Zerith-Labs/ZerithDB.git",
     "directory": "packages/sdk"
   },
   "license": "Apache-2.0",

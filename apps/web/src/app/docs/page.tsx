@@ -451,7 +451,7 @@ export default function DocsPage() {
             Playground
           </Link>
           <a
-            href="https://github.com/arpittkhandelwal/ZerithDB"
+            href="https://github.com/Zerith-Labs/ZerithDB"
             className="text-sm font-medium text-gray-500 hover:text-black transition-colors"
           >
             GitHub
