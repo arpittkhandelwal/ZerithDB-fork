@@ -3,7 +3,7 @@ Name: zerithdb-python
 Version: 0.1.1
 Summary: Python SDK for ZerithDB - Headless AI agent node for P2P mesh network.
 Author: ZerithDB Team
-Project-URL: Homepage, https://github.com/arpittkhandelwal/ZerithDB
+Project-URL: Homepage, https://github.com/Zerith-Labs/ZerithDB
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
