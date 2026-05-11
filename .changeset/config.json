@@ -17,7 +17,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "web"
-  ]
+  "ignore": ["web"]
 }
