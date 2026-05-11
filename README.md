@@ -7,7 +7,7 @@
 ### **Build full-stack apps with ZERO backend. The browser is the server.**
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![CI](https://github.com/zerithdb/zerithdb/actions/workflows/ci.yml/badge.svg)](https://github.com/zerithdb/zerithdb/actions/workflows/ci.yml)
+[![CI](https://github.com/Zerith-Labs/ZerithDB/actions/workflows/ci.yml/badge.svg)](https://github.com/Zerith-Labs/ZerithDB/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)]()
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/MhvuDvzWfF)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -32,7 +32,7 @@ your users' browsers form a resilient, encrypted mesh network.
 - **Private by default.** Public/private key identity — no passwords, no auth servers.
 
 > ZerithDB is in **alpha**. APIs will change. Feedback is our oxygen —
-> [open an issue](https://github.com/zerithdb/zerithdb/issues).
+> [open an issue](https://github.com/Zerith-Labs/ZerithDB/issues).
 
 ---
 
@@ -199,7 +199,7 @@ Highlights:
 We are **actively looking for contributors**. ZerithDB is built in the open, and every PR matters.
 
 ```bash
-git clone https://github.com/zerithdb/zerithdb.git
+git clone https://github.com/Zerith-Labs/ZerithDB.git
 cd zerithdb
 pnpm install
 pnpm dev
@@ -211,8 +211,8 @@ good first issues.
 Good places to start:
 
 - Issues labeled
-  [`good-first-issue`](https://github.com/zerithdb/zerithdb/issues?q=label%3Agood-first-issue)
-- Issues labeled [`help-wanted`](https://github.com/zerithdb/zerithdb/issues?q=label%3Ahelp-wanted)
+  [`good-first-issue`](https://github.com/Zerith-Labs/ZerithDB/issues?q=label%3Agood-first-issue)
+- Issues labeled [`help-wanted`](https://github.com/Zerith-Labs/ZerithDB/issues?q=label%3Ahelp-wanted)
 
 ---
 

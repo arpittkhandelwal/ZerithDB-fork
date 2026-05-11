@@ -37,7 +37,7 @@ constructive. Violations → `conduct@zerithdb.dev`
 ```bash
 git clone https://github.com/YOUR_USERNAME/zerithdb.git
 cd zerithdb
-git remote add upstream https://github.com/zerithdb/zerithdb.git
+git remote add upstream https://github.com/Zerith-Labs/ZerithDB.git
 pnpm install
 pnpm build
 pnpm test          # verify environment
@@ -59,8 +59,8 @@ pnpm --filter zerithdb-todo-app dev
 ### 1. Find or Create an Issue
 
 - Browse
-  [`good-first-issue`](https://github.com/zerithdb/zerithdb/issues?q=label%3Agood-first-issue) or
-  [`help-wanted`](https://github.com/zerithdb/zerithdb/issues?q=label%3Ahelp-wanted).
+  [`good-first-issue`](https://github.com/Zerith-Labs/ZerithDB/issues?q=label%3Agood-first-issue) or
+  [`help-wanted`](https://github.com/Zerith-Labs/ZerithDB/issues?q=label%3Ahelp-wanted).
 - For features, open a Discussion before writing code.
 - Comment "I'll work on this" to claim an issue.
 
@@ -186,8 +186,8 @@ Maintainers handle the actual npm publish via the automated Release PR workflow.
 
 | Where                                                                  | When                          |
 | ---------------------------------------------------------------------- | ----------------------------- |
-| [GitHub Issues](https://github.com/zerithdb/zerithdb/issues)           | Bug reports, feature requests |
-| [GitHub Discussions](https://github.com/zerithdb/zerithdb/discussions) | Ideas, questions              |
+| [GitHub Issues](https://github.com/Zerith-Labs/ZerithDB/issues)           | Bug reports, feature requests |
+| [GitHub Discussions](https://github.com/Zerith-Labs/ZerithDB/discussions) | Ideas, questions              |
 | [Discord `#contributors`](https://discord.gg/MhvuDvzWfF)               | Real-time help                |
 
 ---

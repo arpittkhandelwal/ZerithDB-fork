@@ -73,7 +73,7 @@ export default function LandingPage() {
           </nav>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/arpittkhandelwal/ZerithDB"
+              href="https://github.com/Zerith-Labs/ZerithDB"
               target="_blank"
               rel="noreferrer"
               className="hidden md:flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
@@ -165,7 +165,7 @@ export default function LandingPage() {
             Try Playground
           </Link>
           <a
-            href="https://github.com/arpittkhandelwal/ZerithDB"
+            href="https://github.com/Zerith-Labs/ZerithDB"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 bg-white text-gray-900 border border-gray-200 px-6 py-3.5 rounded-xl font-medium text-base hover:bg-gray-50 transition-all w-full sm:w-auto justify-center shadow-sm"
@@ -632,7 +632,7 @@ export default function LandingPage() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="https://github.com/arpittkhandelwal/ZerithDB"
+              href="https://github.com/Zerith-Labs/ZerithDB"
               className="bg-black text-white px-8 py-4 rounded-xl font-medium text-base hover:bg-gray-800 transition-all shadow-lg w-full sm:w-auto"
             >
               npm install zerithdb-sdk
@@ -640,7 +640,7 @@ export default function LandingPage() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="https://github.com/arpittkhandelwal/ZerithDB"
+              href="https://github.com/Zerith-Labs/ZerithDB"
               target="_blank"
               rel="noreferrer"
               className="bg-gray-100 text-gray-900 px-8 py-4 rounded-xl font-medium text-base hover:bg-gray-200 transition-all w-full sm:w-auto flex items-center justify-center gap-2"
@@ -681,7 +681,7 @@ export default function LandingPage() {
               Documentation
             </Link>
             <a
-              href="https://github.com/arpittkhandelwal/ZerithDB"
+              href="https://github.com/Zerith-Labs/ZerithDB"
               className="hover:text-gray-900 transition-colors"
             >
               GitHub

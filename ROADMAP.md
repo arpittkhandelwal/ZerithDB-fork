@@ -2,7 +2,7 @@
 
 > This roadmap reflects our current direction, not commitments. Priorities shift based on community
 > feedback and real-world usage.
-> [Open a Discussion](https://github.com/zerithdb/zerithdb/discussions) to influence it.
+> [Open a Discussion](https://github.com/Zerith-Labs/ZerithDB/discussions) to influence it.
 
 ---
 
