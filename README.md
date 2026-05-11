@@ -12,8 +12,8 @@
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/MhvuDvzWfF)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[**Documentation**](https://zerithdb.dev/docs) ·
-[**Live Playground**](https://playground.zerithdb.dev) ·
+[**Documentation**](https://zerithdb.netlify.app/docs) ·
+[**Live Playground**](https://zerithdb.netlify.app/playground) ·
 [**Discord**](https://discord.gg/MhvuDvzWfF) · [**Roadmap**](ROADMAP.md)
 
 </div>
