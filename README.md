@@ -152,16 +152,6 @@ that, peers communicate directly.
 
 ---
 
-## Demo Applications
-
-| App                        | Description                                | Live Demo                                        |
-| -------------------------- | ------------------------------------------ | ------------------------------------------------ |
-| ✅ **Todo App**            | Classic realtime todo with offline support | [todo.zerithdb.dev](https://todo.zerithdb.dev)   |
-| 📝 **Collaborative Notes** | Google Docs-style concurrent editing       | [notes.zerithdb.dev](https://notes.zerithdb.dev) |
-| 💬 **Offline Chat**        | P2P chat — works even without internet     | [chat.zerithdb.dev](https://chat.zerithdb.dev)   |
-
----
-
 ## CLI Reference
 
 ```bash
