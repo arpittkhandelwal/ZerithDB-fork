@@ -153,6 +153,21 @@ export class CollectionClient<T extends Record<string, any> = Record<string, any
   }
 
   /**
+   * Delete every document in the collection.
+   */
+  async clearAll(): Promise<void> {
+    try {
+      await this.table.clear();
+    } catch (err) {
+      throw new ZerithDBError(
+        ErrorCode.DB_DELETE_FAILED,
+        `Failed to clear collection "${this.collectionName}"`,
+        { cause: err }
+      );
+    }
+  }
+
+  /**
    * Count documents matching a filter.
    */
   async count(filter: QueryFilter<T> = {}): Promise<number> {
