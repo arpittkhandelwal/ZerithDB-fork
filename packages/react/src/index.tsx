@@ -69,3 +69,133 @@ export function useQuery<T = any>(collectionName: string) {
 
   return { data, loading, error, insert, remove };
 }
+
+/**
+ * Reactive hook to track connected P2P peers.
+ */
+export function usePeers() {
+  const app = useZerith() as any;
+  const [peers, setPeers] = useState<any[]>(app.network.connectedPeers);
+
+  useEffect(() => {
+    const handleConnected = (peer: any) => {
+      setPeers(app.network.connectedPeers);
+    };
+    const handleDisconnected = () => {
+      setPeers(app.network.connectedPeers);
+    };
+
+    app.network.on("peer:connected", handleConnected);
+    app.network.on("peer:disconnected", handleDisconnected);
+
+    return () => {
+      app.network.off("peer:connected", handleConnected);
+      app.network.off("peer:disconnected", handleDisconnected);
+    };
+  }, [app]);
+
+  return peers;
+}
+
+/**
+ * Interactive visualizer for the P2P social graph of connected peers.
+ */
+export const PeerSocialGraph: React.FC<{ width?: number; height?: number }> = ({
+  width = 600,
+  height = 400,
+}) => {
+  const peers = usePeers();
+  const app = useZerith() as any;
+  const localPeerId = app.network.localPeerId || "me";
+
+  // Simple force-directed-ish layout or circle layout
+  const nodes = useMemo(() => {
+    const all = [
+      { peerId: localPeerId, isLocal: true },
+      ...peers.map((p) => ({ ...p, isLocal: false })),
+    ];
+    return all.map((node, i) => {
+      const angle = (i / all.length) * 2 * Math.PI;
+      const radius = Math.min(width, height) * 0.35;
+      return {
+        ...node,
+        x: width / 2 + radius * Math.cos(angle),
+        y: height / 2 + radius * Math.sin(angle),
+      };
+    });
+  }, [peers, localPeerId, width, height]);
+
+  return (
+    <div
+      className="zerith-social-graph"
+      style={{
+        position: "relative",
+        width,
+        height,
+        background: "#0f172a",
+        borderRadius: "12px",
+        overflow: "hidden",
+      }}
+    >
+      <svg width={width} height={height}>
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Edges */}
+        {nodes
+          .filter((n) => !n.isLocal)
+          .map((node) => (
+            <line
+              key={`edge-${node.peerId}`}
+              x1={width / 2}
+              y1={height / 2}
+              x2={node.x}
+              y2={node.y}
+              stroke="rgba(148, 163, 184, 0.2)"
+              strokeWidth="2"
+              strokeDasharray="4 4"
+            />
+          ))}
+
+        {/* Nodes */}
+        {nodes.map((node) => (
+          <g key={node.peerId} transform={`translate(${node.x}, ${node.y})`}>
+            <circle
+              r={node.isLocal ? 12 : 10}
+              fill={node.isLocal ? "#3b82f6" : "#10b981"}
+              filter="url(#glow)"
+            />
+            <text
+              y={25}
+              textAnchor="middle"
+              fill="#94a3b8"
+              fontSize="10"
+              fontFamily="Inter, sans-serif"
+            >
+              {node.isLocal ? "Me (Local)" : node.peerId.slice(0, 8)}
+            </text>
+          </g>
+        ))}
+      </svg>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: "10px",
+          left: "10px",
+          color: "#64748b",
+          fontSize: "12px",
+        }}
+      >
+        {peers.length} Peer(s) Connected
+      </div>
+    </div>
+  );
+};
