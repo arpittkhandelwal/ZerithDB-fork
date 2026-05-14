@@ -2,6 +2,7 @@ import SimplePeer from "simple-peer";
 import type { ZerithDBConfig, PeerId, PeerInfo } from "zerithdb-core";
 import { EventEmitter, ZerithDBError, ErrorCode } from "zerithdb-core";
 import type { AuthManager } from "zerithdb-auth";
+import { RelaySelector } from "./relay-selector.js";
 
 type NetworkEvents = {
   "peer:connected": PeerInfo;
@@ -29,15 +30,16 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
   private readonly peers = new Map<PeerId, SimplePeer.Instance>();
   private readonly peerInfo = new Map<PeerId, PeerInfo>();
   private localPeerId: PeerId = crypto.randomUUID();
+  private readonly relaySelector: RelaySelector;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
   private reconnectAttempts = 0;
   private disposed = false;
 
-  constructor(
     private readonly config: ZerithDBConfig,
     private readonly auth: AuthManager
   ) {
     super();
+    this.relaySelector = new RelaySelector(this.localPeerId);
   }
 
   /**
@@ -107,6 +109,15 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
     const peer = this.peers.get(peerId);
     if (peer?.connected) {
       peer.send(JSON.stringify(message));
+    } else {
+      // Intelligent relay: find the next hop towards the target
+      const nextHop = this.relaySelector.getNextHop(peerId, Array.from(this.peers.keys()));
+      if (nextHop) {
+        this.sendTo(nextHop, {
+          type: "relay",
+          payload: JSON.stringify({ target: peerId, message }),
+        });
+      }
     }
   }
 
@@ -144,14 +155,19 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
 
   private handleSignalingMessage(msg: SignalingMessage): void {
     switch (msg.type) {
-      case "peer-list":
-        // Server sends list of existing peers — initiate connections
-        for (const peerId of msg.payload as PeerId[]) {
+      case "peer-list": {
+        // Server sends list of existing peers — pick intelligent subset
+        const allPeers = msg.payload as PeerId[];
+        const maxPeers = this.config.sync?.maxPeers ?? 10;
+        const selectedPeers = this.relaySelector.selectPeers(allPeers, maxPeers);
+
+        for (const peerId of selectedPeers) {
           if (peerId !== this.localPeerId) {
             this.createPeer(peerId, true);
           }
         }
         break;
+      }
 
       case "offer":
         if (msg.to === this.localPeerId) {
@@ -216,7 +232,19 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
       try {
         const msg = JSON.parse(
           typeof data === "string" ? data : new TextDecoder().decode(data)
-        ) as { type: string; payload: string | Uint8Array };
+        ) as any;
+
+        if (msg.type === "relay") {
+          const { target, message } = JSON.parse(msg.payload);
+          if (target === this.localPeerId) {
+            this.emit("message", { ...message, from: remotePeerId });
+          } else {
+            // Forward to next hop
+            this.sendTo(target, message);
+          }
+          return;
+        }
+
         this.emit("message", { ...msg, from: remotePeerId });
       } catch {
         // Ignore malformed messages
