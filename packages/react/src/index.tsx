@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { createApp } from "zerithdb-sdk";
-import type { ZerithDBApp, ZerithDBConfig } from "zerithdb-sdk";
+import type { ZerithDBApp, ZerithDBConfig, QueryFilter } from "zerithdb-sdk";
 import { liveQuery } from "dexie";
 
 const ZerithContext = createContext<ZerithDBApp | null>(null);
@@ -31,22 +31,35 @@ export const useZerith = (): ZerithDBApp => {
   return context;
 };
 
+// Helper hook to deep-compare the filter to avoid unnecessary re-subscriptions
+function useDeepCompareMemoize<T>(value: T) {
+  const ref = React.useRef<T>(value);
+  if (JSON.stringify(value) !== JSON.stringify(ref.current)) {
+    ref.current = value;
+  }
+  return ref.current;
+}
+
 /**
  * Reactive hook to query a collection.
  * Automatically updates when local or remote (P2P) changes occur.
+ * @param collectionName The name of the collection to query
+ * @param filter A MongoDB-style query filter. Must be JSON-serializable.
  */
-export function useQuery<T extends Record<string, any>>(collectionName: string, filter: any = {}) {
+export function useQuery<T extends Record<string, any>>(collectionName: string, filter: QueryFilter<T> = {}) {
   const app = useZerith();
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+
+  const memoizedFilter = useDeepCompareMemoize(filter);
 
   useEffect(() => {
     const collection = app.db<T>(collectionName);
     
     // Use Dexie's liveQuery to reactively observe local DB changes
     // (which also includes remote P2P updates applied by the sync engine)
-    const observable = liveQuery(() => collection.find(filter));
+    const observable = liveQuery(() => collection.find(memoizedFilter));
     
     const subscription = observable.subscribe({
       next: (docs) => {
@@ -62,14 +75,17 @@ export function useQuery<T extends Record<string, any>>(collectionName: string, 
     return () => {
       subscription.unsubscribe();
     };
-  }, [app, collectionName, JSON.stringify(filter)]);
+  }, [app, collectionName, memoizedFilter]);
 
   const insert = async (item: T) => {
     return app.db<T>(collectionName).insert(item);
   };
 
   const remove = async (id: string) => {
-    return app.db<T>(collectionName).delete({ _id: id } as any);
+    const collection = app.db<T>(collectionName);
+    type DeleteFilter = Parameters<typeof collection.delete>[0];
+    const deleteFilter = { _id: id } as unknown as DeleteFilter;
+    return collection.delete(deleteFilter);
   };
 
   return { data, loading, error, insert, remove };
@@ -105,19 +121,23 @@ export function useAuth() {
   const [identity, setIdentity] = useState(() => app.auth.identity);
 
   useEffect(() => {
-    // Identity changes aren't explicitly emitted, but we update on signIn/signOut
+    const handleIdentityChange = (newIdentity: any) => setIdentity(newIdentity);
+    app.auth.on("identity:change", handleIdentityChange);
+    // Initialize in case it changed between render and effect
     setIdentity(app.auth.identity);
-  }, [app, app.auth.identity]);
+    return () => {
+      app.auth.off("identity:change", handleIdentityChange);
+    };
+  }, [app]);
 
   const signIn = async () => {
     const id = await app.auth.signIn();
-    setIdentity(id);
+    // No need to setIdentity here, the event listener will handle it
     return id;
   };
 
   const signOut = async () => {
     await app.auth.signOut();
-    setIdentity(null);
   };
 
   return { identity, signIn, signOut };
