@@ -57,6 +57,8 @@ function evaluatePolynomial(poly: Uint8Array, x: number): number {
 export function split(secret: Uint8Array, threshold: number, total: number): Uint8Array[] {
   if (threshold > total) throw new Error("Threshold cannot be greater than total");
   if (threshold < 2) throw new Error("Threshold must be at least 2");
+  if (total > 255) throw new Error("Total shares cannot exceed 255");
+  if (threshold > 255) throw new Error("Threshold cannot exceed 255");
 
   const shares: Uint8Array[] = [];
   for (let i = 0; i < total; i++) {

@@ -122,9 +122,13 @@ export class AuthManager {
       throw new ZerithDBError(ErrorCode.AUTH_KEY_NOT_FOUND, "No identity loaded.");
     }
 
-    const { split } = await import("./sss.js");
-    const shares = split(this.privateKeyBytes, threshold, total);
-    return shares.map((s) => bytesToHex(s));
+    try {
+      const { split } = await import("./sss.js");
+      const shares = split(this.privateKeyBytes, threshold, total);
+      return shares.map((s) => bytesToHex(s));
+    } catch (err: any) {
+      throw new ZerithDBError(ErrorCode.AUTH_INVALID_SHARES, err.message, { cause: err });
+    }
   }
 
   /**

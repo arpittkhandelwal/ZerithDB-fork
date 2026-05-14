@@ -20,15 +20,23 @@ describe("Shamir's Secret Sharing", () => {
   });
 
   it("should fail to recover with fewer than threshold shares", () => {
-    const secret = new Uint8Array([1, 2, 3]);
-    const threshold = 3;
-    const total = 5;
+    // Mock Math.random to ensure non-zero coefficients (avoids flakiness)
+    const originalRandom = Math.random;
+    Math.random = () => 0.5; // 0.5 * 256 = 128
 
-    const shares = split(secret, threshold, total);
+    try {
+      const secret = new Uint8Array([1, 2, 3]);
+      const threshold = 3;
+      const total = 5;
 
-    // With 2 shares, it should NOT recover the secret (statistically unlikely to be the same)
-    const recovered = combine(shares.slice(0, threshold - 1));
-    expect(recovered).not.toEqual(secret);
+      const shares = split(secret, threshold, total);
+
+      // With 2 shares, it should NOT recover the secret
+      const recovered = combine(shares.slice(0, threshold - 1));
+      expect(recovered).not.toEqual(secret);
+    } finally {
+      Math.random = originalRandom;
+    }
   });
 
   it("should work with different thresholds", () => {
