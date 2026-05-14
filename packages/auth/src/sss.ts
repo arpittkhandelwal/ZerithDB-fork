@@ -1,6 +1,6 @@
 /**
  * Shamir's Secret Sharing over GF(2^8)
- * 
+ *
  * This is used for Social Recovery of identities.
  * Each byte of the secret is shared using a polynomial of degree (threshold - 1).
  */

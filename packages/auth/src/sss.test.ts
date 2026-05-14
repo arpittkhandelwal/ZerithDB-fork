@@ -25,7 +25,7 @@ describe("Shamir's Secret Sharing", () => {
     const total = 5;
 
     const shares = split(secret, threshold, total);
-    
+
     // With 2 shares, it should NOT recover the secret (statistically unlikely to be the same)
     const recovered = combine(shares.slice(0, threshold - 1));
     expect(recovered).not.toEqual(secret);

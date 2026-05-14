@@ -151,9 +151,13 @@ export class AuthManager {
       this.saveToStorage(privateKey, publicKeyBytes);
       return identity;
     } catch (err) {
-      throw new ZerithDBError(ErrorCode.AUTH_RECOVERY_FAILED, "Failed to recover identity from shares", {
-        cause: err,
-      });
+      throw new ZerithDBError(
+        ErrorCode.AUTH_RECOVERY_FAILED,
+        "Failed to recover identity from shares",
+        {
+          cause: err,
+        }
+      );
     }
   }
 
