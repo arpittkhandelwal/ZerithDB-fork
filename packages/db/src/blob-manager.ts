@@ -40,11 +40,9 @@ export class BlobManager {
       const result = await response.json();
       return result.Hash; // CID v0/v1
     } catch (err) {
-      throw new ZerithDBError(
-        ErrorCode.DB_IPFS_UPLOAD_FAILED,
-        "Failed to upload blob to IPFS",
-        { cause: err }
-      );
+      throw new ZerithDBError(ErrorCode.DB_IPFS_UPLOAD_FAILED, "Failed to upload blob to IPFS", {
+        cause: err,
+      });
     }
   }
 
