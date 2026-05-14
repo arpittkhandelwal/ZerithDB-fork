@@ -34,7 +34,7 @@ export class NetworkManager extends EventEmitter<NetworkEvents> {
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
   private reconnectAttempts = 0;
   private disposed = false;
-
+  constructor(
     private readonly config: ZerithDBConfig,
     private readonly auth: AuthManager
   ) {

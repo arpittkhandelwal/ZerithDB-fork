@@ -25,7 +25,7 @@ export class RelaySelector {
 
     // Pick peers at exponential distances
     const selected = new Set<PeerId>();
-    
+
     // Always include some closest peers
     for (let i = 0; i < Math.min(sorted.length, Math.floor(maxConnections / 2)); i++) {
       selected.add(sorted[i]);
