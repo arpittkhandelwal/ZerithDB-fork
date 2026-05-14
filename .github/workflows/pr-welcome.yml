@@ -17,11 +17,7 @@ jobs:
         with:
           script: |
             const creator = context.payload.pull_request.user.login;
-            const message = `### 👋 Hello @${creator}!
-
-Our reviewers will be checking your PR shortly. In the meantime, please join our Discord server to connect with the team and other contributors:
-
-🚀 **Join Discord:** https://discord.gg/mwCayEMK4h`;
+            const message = "### Hello @" + creator + "!\n\nOur reviewers will be checking your PR shortly. In the meantime, please join our Discord server to connect with the team and other contributors:\n\n**Join Discord:** https://discord.gg/mwCayEMK4h";
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
