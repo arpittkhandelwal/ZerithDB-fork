@@ -4,6 +4,7 @@ import type { ZerithDBConfig, SyncState } from "zerithdb-core";
 import { EventEmitter } from "zerithdb-core";
 import type { DbClient } from "zerithdb-db";
 import type { NetworkManager } from "zerithdb-network";
+import { type SyncProtocol, DefaultProtocol } from "./protocol.js";
 
 type SyncEvents = {
   "state:change": SyncState;
@@ -19,6 +20,8 @@ type SyncEvents = {
 export class SyncEngine extends EventEmitter<SyncEvents> {
   private readonly docs = new Map<string, Y.Doc>();
   private readonly persistences = new Map<string, IndexeddbPersistence>();
+  private readonly protocols = new Map<string, SyncProtocol>();
+  private activeProtocol: SyncProtocol;
   private _enabled = false;
   private _state: SyncState = { synced: false, pendingUpdates: 0, connectedPeers: 0 };
 
@@ -29,6 +32,11 @@ export class SyncEngine extends EventEmitter<SyncEvents> {
   ) {
     super();
     this.onPeerUpdate = this.onPeerUpdate.bind(this);
+
+    // Initialize default protocol
+    const defaultProto = new DefaultProtocol();
+    this.protocols.set(defaultProto.name, defaultProto);
+    this.activeProtocol = defaultProto;
   }
 
   /**
@@ -52,6 +60,25 @@ export class SyncEngine extends EventEmitter<SyncEvents> {
   /** Current sync state snapshot */
   get state(): Readonly<SyncState> {
     return this._state;
+  }
+
+  /**
+   * Register a new sync protocol for hot-reloading.
+   */
+  registerProtocol(protocol: SyncProtocol): void {
+    this.protocols.set(protocol.name, protocol);
+  }
+
+  /**
+   * Switch the active sync protocol at runtime.
+   * All future outgoing messages will use this protocol.
+   */
+  useProtocol(name: string): void {
+    const proto = this.protocols.get(name);
+    if (!proto) {
+      throw new Error(`Protocol "${name}" not found. Register it first.`);
+    }
+    this.activeProtocol = proto;
   }
 
   /**
@@ -81,7 +108,7 @@ export class SyncEngine extends EventEmitter<SyncEvents> {
       this.emit("update:local", { collectionName, update });
       this.network.broadcast({
         type: "sync-update",
-        payload: this.encodeMessage(collectionName, update),
+        payload: this.activeProtocol.encode({ collectionName, update }),
       });
     });
 
@@ -116,54 +143,14 @@ export class SyncEngine extends EventEmitter<SyncEvents> {
   private onPeerUpdate(msg: { type: string; payload: Uint8Array | string; from: string }): void {
     if (msg.type !== "sync-update") return;
 
-    const payload = typeof msg.payload === "string" ? base64ToBytes(msg.payload) : msg.payload;
-
-    const decoded = this.decodeMessage(payload);
+    const decoded = this.activeProtocol.decode(msg.payload);
     if (decoded === null) return;
 
     this.applyRemoteUpdate(decoded.collectionName, decoded.update, msg.from);
-  }
-
-  private encodeMessage(collectionName: string, update: Uint8Array): string {
-    const nameBytes = new TextEncoder().encode(collectionName);
-    const header = new Uint8Array([nameBytes.length]);
-    const combined = new Uint8Array(1 + nameBytes.length + update.length);
-    combined.set(header, 0);
-    combined.set(nameBytes, 1);
-    combined.set(update, 1 + nameBytes.length);
-    return bytesToBase64(combined);
-  }
-
-  private decodeMessage(bytes: Uint8Array): {
-    collectionName: string;
-    update: Uint8Array;
-  } | null {
-    try {
-      const nameLen = bytes[0];
-      if (nameLen === undefined) return null;
-      const nameBytes = bytes.slice(1, 1 + nameLen);
-      const update = bytes.slice(1 + nameLen);
-      return {
-        collectionName: new TextDecoder().decode(nameBytes),
-        update,
-      };
-    } catch {
-      return null;
-    }
   }
 
   private updateState(partial: Partial<SyncState>): void {
     this._state = { ...this._state, ...partial };
     this.emit("state:change", this._state);
   }
-}
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function bytesToBase64(bytes: Uint8Array): string {
-  return btoa(String.fromCharCode(...bytes));
-}
-
-function base64ToBytes(b64: string): Uint8Array {
-  return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 }
