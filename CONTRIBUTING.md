@@ -184,11 +184,11 @@ Maintainers handle the actual npm publish via the automated Release PR workflow.
 
 ## Getting Help
 
-| Where                                                                  | When                          |
-| ---------------------------------------------------------------------- | ----------------------------- |
+| Where                                                                     | When                          |
+| ------------------------------------------------------------------------- | ----------------------------- |
 | [GitHub Issues](https://github.com/Zerith-Labs/ZerithDB/issues)           | Bug reports, feature requests |
 | [GitHub Discussions](https://github.com/Zerith-Labs/ZerithDB/discussions) | Ideas, questions              |
-| [Discord `#contributors`](https://discord.gg/MhvuDvzWfF)               | Real-time help                |
+| [Discord `#contributors`](https://discord.gg/MhvuDvzWfF)                  | Real-time help                |
 
 ---
 

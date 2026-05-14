@@ -212,7 +212,8 @@ Good places to start:
 
 - Issues labeled
   [`good-first-issue`](https://github.com/Zerith-Labs/ZerithDB/issues?q=label%3Agood-first-issue)
-- Issues labeled [`help-wanted`](https://github.com/Zerith-Labs/ZerithDB/issues?q=label%3Ahelp-wanted)
+- Issues labeled
+  [`help-wanted`](https://github.com/Zerith-Labs/ZerithDB/issues?q=label%3Ahelp-wanted)
 
 ---
 
