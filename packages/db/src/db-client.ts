@@ -8,6 +8,7 @@ import type {
   UpdateSpec,
 } from "zerithdb-core";
 import { ZerithDBError, ErrorCode } from "zerithdb-core";
+import { BlobManager } from "./blob-manager.js";
 
 /**
  * A handle to a single named collection within the ZerithDB local database.
@@ -16,7 +17,8 @@ import { ZerithDBError, ErrorCode } from "zerithdb-core";
 export class CollectionClient<T extends Record<string, any> = Record<string, any>> {
   constructor(
     private readonly table: Table<Document<T>>,
-    private readonly collectionName: string
+    private readonly collectionName: string,
+    private readonly blobManager: BlobManager
   ) {}
 
   /**
@@ -175,6 +177,21 @@ export class CollectionClient<T extends Record<string, any> = Record<string, any
     return docs.length;
   }
 
+  /**
+   * Upload a large binary object (Blob or Uint8Array) to IPFS.
+   * Returns a Content Identifier (CID).
+   */
+  async putBlob(data: Blob | Uint8Array): Promise<string> {
+    return this.blobManager.upload(data);
+  }
+
+  /**
+   * Download a blob from IPFS by its CID.
+   */
+  async getBlob(cid: string): Promise<Blob> {
+    return this.blobManager.download(cid);
+  }
+
   private matchesFilter(doc: Document<T>, filter: QueryFilter<T>): boolean {
     for (const [key, condition] of Object.entries(filter)) {
       const fieldValue = (doc as Record<string, any>)[key];
@@ -228,17 +245,22 @@ class ZerithDBDexie extends Dexie {
  */
 export class DbClient {
   private readonly dexie: ZerithDBDexie;
+  private readonly blobManager: BlobManager;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly collections = new Map<string, CollectionClient<any>>();
 
   constructor(config: ZerithDBConfig) {
     this.dexie = new ZerithDBDexie(config.appId);
+    this.blobManager = new BlobManager(config.db);
   }
 
   collection<T extends Record<string, any>>(name: string): CollectionClient<T> {
     if (!this.collections.has(name)) {
       const table = this.dexie.ensureCollection(name);
-      this.collections.set(name, new CollectionClient<T>(table as Table<Document<T>>, name));
+      this.collections.set(
+        name,
+        new CollectionClient<T>(table as Table<Document<T>>, name, this.blobManager)
+      );
     }
     return this.collections.get(name) as CollectionClient<T>;
   }
