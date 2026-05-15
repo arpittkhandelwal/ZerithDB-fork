@@ -1,4 +1,3 @@
-import type { DbClient } from "zerithdb-db";
 import { ZerithDBError, ErrorCode } from "zerithdb-core";
 
 export interface PGReplicationConfig {
@@ -19,9 +18,11 @@ export type PGChange = {
  */
 export class PostgresReplicator {
   private ws: WebSocket | null = null;
+  private changeQueue: PGChange[] = [];
+  private isProcessing = false;
 
   constructor(
-    private readonly db: DbClient,
+    private readonly app: { db(name: string): any },
     private readonly config: PGReplicationConfig
   ) {}
 
@@ -29,23 +30,38 @@ export class PostgresReplicator {
    * Start listening to the PG change stream.
    */
   async start(): Promise<void> {
+    if (this.ws) {
+      this.stop();
+    }
+
     return new Promise((resolve, reject) => {
       try {
         this.ws = new WebSocket(this.config.url);
       } catch (err) {
-        reject(new Error(`Failed to connect to PG replication stream: ${err}`));
+        reject(
+          new ZerithDBError(
+            ErrorCode.NETWORK_DISCONNECTED,
+            `Failed to connect to PG replication stream: ${err}`
+          )
+        );
         return;
       }
 
+      let isResolved = false;
+
       this.ws.onopen = () => {
         console.log("ZerithDB: Connected to PG replication stream");
+        isResolved = true;
         resolve();
       };
 
       this.ws.onmessage = (event) => {
         try {
           const change = JSON.parse(event.data) as PGChange;
-          void this.handlePGChange(change);
+          if (!change || typeof change !== "object" || !change.table || !change.type) {
+            return;
+          }
+          this.queueChange(change);
         } catch {
           // Ignore malformed messages
         }
@@ -53,6 +69,19 @@ export class PostgresReplicator {
 
       this.ws.onerror = (err) => {
         console.error("ZerithDB: PG replication stream error", err);
+        if (!isResolved) {
+          reject(
+            new ZerithDBError(
+              ErrorCode.NETWORK_DISCONNECTED,
+              "PG replication stream error during handshake"
+            )
+          );
+        }
+      };
+
+      this.ws.onclose = () => {
+        console.warn("ZerithDB: PG replication stream closed");
+        // Simple auto-reconnect could be implemented here
       };
     });
   }
@@ -67,22 +96,49 @@ export class PostgresReplicator {
     }
   }
 
+  private queueChange(change: PGChange): void {
+    this.changeQueue.push(change);
+    if (!this.isProcessing) {
+      void this.processQueue();
+    }
+  }
+
+  private async processQueue(): Promise<void> {
+    this.isProcessing = true;
+    while (this.changeQueue.length > 0) {
+      const change = this.changeQueue.shift();
+      if (change) {
+        await this.handlePGChange(change).catch((err) => {
+          console.error(`ZerithDB: Unhandled error applying PG change to "${change.table}"`, err);
+        });
+      }
+    }
+    this.isProcessing = false;
+  }
+
   private async handlePGChange(change: PGChange): Promise<void> {
     const collectionName = this.config.tableMap[change.table];
     if (!collectionName) return;
 
-    const collection = this.db.collection(collectionName);
+    const collection = this.app.db(collectionName);
 
     try {
       switch (change.type) {
         case "INSERT":
+          // We use upsert logic (by falling back to insert if it's new)
+          // To preserve the PG _id, we must ensure the local insert doesn't generate a new one if present.
+          // Note: The collection client insert needs to respect document._id (which we will fix in db-client)
           await collection.insert(change.record);
           break;
         case "UPDATE":
-          // Assuming record has an _id or we use a mapping
-          const id = change.record._id || change.record.id;
-          if (id) {
-            await collection.update({ _id: id } as any, { $set: change.record });
+          const updateId = change.record._id || change.record.id;
+          if (updateId) {
+            try {
+              await collection.update({ _id: updateId } as any, { $set: change.record });
+            } catch {
+              // If update fails (e.g. document not found locally), we fallback to insert to ensure convergence
+              await collection.insert({ ...change.record, _id: updateId });
+            }
           }
           break;
         case "DELETE":
