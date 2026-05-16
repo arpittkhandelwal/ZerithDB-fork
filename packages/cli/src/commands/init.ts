@@ -4,7 +4,7 @@ import ora from "ora";
 import chalk from "chalk";
 import { execa } from "execa";
 import prompts from "prompts";
-
+import { writeFile } from "../utils/writeFile";
 const TEMPLATES: Record<string, string> = {
   todo: "todo-app",
   chat: "chat-app",
@@ -142,20 +142,16 @@ async function scaffoldTemplate(
     },
   };
 
-  await fs.writeFile(path.join(targetDir, "package.json"), JSON.stringify(pkg, null, 2));
-
-  // Write minimal app entry
-  const appDir = path.join(targetDir, "src", "app");
-  await fs.mkdir(appDir, { recursive: true });
+  await writeFile(targetDir, "package.json", JSON.stringify(pkg, null, 2));
 
   const indexContent = template === "todo" ? todoTemplate(appName) : blankTemplate(appName);
   const layoutContent = layoutTemplate();
 
-  await fs.writeFile(path.join(appDir, "page.tsx"), indexContent);
-  await fs.writeFile(path.join(appDir, "layout.tsx"), layoutContent);
+  await writeFile(targetDir, "src/app/page.tsx", indexContent);
+  await writeFile(targetDir, "src/app/layout.tsx", layoutContent);
 
   // .gitignore
-  await fs.writeFile(path.join(targetDir, ".gitignore"), "node_modules\n.next\ndist\n.env\n");
+  await writeFile(targetDir, ".gitignore", "node_modules\n.next\ndist\n.env\n");
 }
 
 function layoutTemplate(): string {
