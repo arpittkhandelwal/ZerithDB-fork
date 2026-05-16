@@ -17,23 +17,28 @@ jobs:
         with:
           script: |
             let level = null;
-            let targetType = context.eventName === 'issue_comment' ? (context.payload.issue.pull_request ? 'pr' : 'issue') : (context.payload.pull_request ? 'pr' : 'issue');
-            let targetNumber = context.issue.number;
+            const eventName = context.eventName;
+            const payload = context.payload;
+            const targetNumber = context.issue.number;
 
-            if (context.eventName === 'issue_comment') {
-              const body = context.payload.comment.body.trim();
-              const association = context.payload.comment.author_association;
+            console.log(`Event: ${eventName}, Target: #${targetNumber}`);
+
+            if (eventName === 'issue_comment') {
+              const body = payload.comment.body.trim();
+              const association = payload.comment.author_association;
               const isTrusted = ['OWNER', 'MEMBER', 'COLLABORATOR'].includes(association);
+
+              console.log(`Comment body: "${body}", Trusted: ${isTrusted}`);
 
               if (body.startsWith('/addlevel ') && isTrusted) {
                 const requestedLevel = body.split(' ')[1].toLowerCase();
                 const validLevels = ['beginner', 'intermediate', 'advanced', 'critical'];
                 if (validLevels.includes(requestedLevel)) {
                   level = `level:${requestedLevel}`;
+                  console.log(`Selected manual level: ${level}`);
                 }
               }
-            } else if (context.eventName === 'pull_request') {
-              // Automatic labeling for PRs based on directories
+            } else if (eventName === 'pull_request') {
               const { data: files } = await github.rest.pulls.listFiles({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -41,6 +46,7 @@ jobs:
               });
 
               const paths = files.map(f => f.filename);
+              console.log(`Changed files count: ${paths.length}`);
               
               const advancedPaths = ['packages/db/', 'packages/core/', 'packages/sync/', 'packages/network/', 'packages/storage/'];
               const intermediatePaths = ['packages/react/', 'packages/solid/', 'packages/vue/', 'packages/cli/', 'packages/auth/', 'packages/sdk/'];
@@ -52,16 +58,20 @@ jobs:
               } else {
                 level = 'level:beginner';
               }
+              console.log(`Selected automatic level: ${level}`);
             }
 
             if (level) {
               const fs = require('fs');
               fs.writeFileSync('level.txt', level);
               fs.writeFileSync('number.txt', targetNumber.toString());
+              console.log('Artifact data saved.');
+            } else {
+              console.log('No level assigned for this event.');
             }
 
       - name: Upload info
-        if: hashFiles('level.txt') != ''
+        id: upload
         uses: actions/upload-artifact@v4
         with:
           name: level-info
@@ -69,3 +79,4 @@ jobs:
             level.txt
             number.txt
           retention-days: 1
+        continue-on-error: true
