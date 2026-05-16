@@ -6,7 +6,6 @@ on:
 
 permissions:
   issues: write
-  pull-requests: write
 
 jobs:
   manage-label:
@@ -42,7 +41,10 @@ jobs:
                 });
                 console.log(`Removed label "${labelName}" from PR #${issue_number} due to changes requested`);
               } catch (error) {
-                // Ignore if label doesn't exist
-                console.log('Label not found or already removed');
+                if (error.status === 404) {
+                  console.log(`Label "${labelName}" not found or already removed from PR #${issue_number}`);
+                } else {
+                  throw error;
+                }
               }
             }
