@@ -1,0 +1,5 @@
+# This file determines who is automatically requested for review when a PR is opened.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Automatically request review from you on ALL files in the repository
+* @arpittkhandelwal

@@ -142,6 +142,30 @@ describe("DbClient — CollectionClient", () => {
     });
   });
 
+  describe("clearAll()", () => {
+    it("should remove every document in the collection", async () => {
+      const col = db.collection<{ done: boolean }>("tasks");
+      await col.insertMany([{ done: true }, { done: false }, { done: true }]);
+
+      await col.clearAll();
+
+      expect(await col.find({})).toHaveLength(0);
+      expect(await col.count()).toBe(0);
+    });
+
+    it("should not clear other collections", async () => {
+      const tasks = db.collection<{ done: boolean }>("tasks");
+      const notes = db.collection<{ text: string }>("notes");
+      await tasks.insertMany([{ done: true }, { done: false }]);
+      await notes.insert({ text: "keep me" });
+
+      await tasks.clearAll();
+
+      expect(await tasks.count()).toBe(0);
+      expect(await notes.count()).toBe(1);
+    });
+  });
+
   describe("count()", () => {
     it("should return correct document count", async () => {
       const col = db.collection<{ x: number }>("counts");

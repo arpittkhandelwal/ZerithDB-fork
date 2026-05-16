@@ -35,8 +35,8 @@ constructive. Violations → `conduct@zerithdb.dev`
 ### Bootstrap
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/zerithdb.git
-cd zerithdb
+git clone https://github.com/YOUR_USERNAME/ZerithDB.git
+cd ZerithDB
 git remote add upstream https://github.com/Zerith-Labs/ZerithDB.git
 pnpm install
 pnpm build
@@ -49,7 +49,7 @@ pnpm dev           # start all packages in watch mode
 ```bash
 pnpm --filter zerithdb-db dev
 pnpm --filter zerithdb-sync test
-pnpm --filter zerithdb-todo-app dev
+pnpm --filter zerithdb-sdk dev
 ```
 
 ---
@@ -184,11 +184,11 @@ Maintainers handle the actual npm publish via the automated Release PR workflow.
 
 ## Getting Help
 
-| Where                                                                  | When                          |
-| ---------------------------------------------------------------------- | ----------------------------- |
+| Where                                                                     | When                          |
+| ------------------------------------------------------------------------- | ----------------------------- |
 | [GitHub Issues](https://github.com/Zerith-Labs/ZerithDB/issues)           | Bug reports, feature requests |
 | [GitHub Discussions](https://github.com/Zerith-Labs/ZerithDB/discussions) | Ideas, questions              |
-| [Discord `#contributors`](https://discord.gg/MhvuDvzWfF)               | Real-time help                |
+| [Discord `#contributors`](https://discord.gg/MhvuDvzWfF)                  | Real-time help                |
 
 ---
 
